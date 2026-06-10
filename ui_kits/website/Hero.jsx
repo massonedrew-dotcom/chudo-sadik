@@ -1,0 +1,155 @@
+/* Чудо Садик — Hero, with 3 homepage directions */
+function Hero({ direction = 'sunshine' }) {
+  const { Button, Badge } = window.DesignSystem_52b7c1;
+  const { Ic, Photo, Blob, scrollToId } = window;
+
+  const trust = [
+    { icon: 'cake', t: 'от 1 до 7 лет' },
+    { icon: 'utensils', t: '5-разовое питание' },
+    { icon: 'send', t: 'отчёт в Telegram' },
+  ];
+
+  const ctas = (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+      <Button variant="sun" size="lg" iconRight={<Ic n="arrow-right" size={20} />} onClick={() => scrollToId('enroll')}>Записаться на экскурсию</Button>
+      <Button variant="soft" size="lg" iconLeft={<Ic n="sparkles" size={18} />} onClick={() => scrollToId('programs')}>Наши занятия</Button>
+    </div>
+  );
+
+  /* ---------- A · Sunshine: gradient headline + sun + photo ---------- */
+  if (direction === 'sunshine') {
+    return (
+      <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--cream)' }}>
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(circle at 76% 30%, var(--yellow-200) 0%, transparent 42%)',
+          pointerEvents: 'none',
+        }} />
+        <Blob color="var(--pink-200)" size={260} style={{ left: '-60px', bottom: '-40px' }} />
+        <div className="cs-hero-grid" style={{
+          maxWidth: 'var(--container-max)', margin: '0 auto',
+          padding: 'clamp(48px,7vw,96px) clamp(20px,5vw,48px)',
+          display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: '48px', alignItems: 'center',
+          position: 'relative',
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+            <span className="cs-overline">Развивающий садик · 1–7 лет</span>
+            <h1 style={{ font: 'var(--font-h1)', fontSize: 'clamp(40px,5.4vw,72px)', margin: 0 }}>
+              Место, где детям<br /><span className="cs-gradient-text">хочется остаться</span>
+            </h1>
+            <p style={{ font: 'var(--font-lead)', fontSize: '20px', color: 'var(--color-text-muted)', maxWidth: '480px' }}>
+              Тёплая домашняя атмосфера, заботливые педагоги и каждый день — что-то новое. Мы рады поприветствовать вас в нашем садике. ✨
+            </p>
+            {ctas}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '4px' }}>
+              {trust.map((x) => (
+                <Badge key={x.t} color="neutral" iconLeft={<Ic n={x.icon} size={15} />} size="lg">{x.t}</Badge>
+              ))}
+            </div>
+          </div>
+          <div style={{ position: 'relative' }}>
+            <Photo caption="Счастливые дети на занятии" icon="sun" tint="sun"
+              style={{ height: '460px', boxShadow: 'var(--shadow-lg)', border: '6px solid #fff' }} />
+            <div style={{
+              position: 'absolute', bottom: '-22px', left: '-22px',
+              background: '#fff', borderRadius: 'var(--radius-lg)', padding: '14px 18px',
+              boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', gap: '12px',
+            }}>
+              <span style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Ic n="heart" size={22} />
+              </span>
+              <span style={{ lineHeight: 1.2 }}>
+                <b style={{ fontFamily: 'var(--font-display)', fontSize: '20px' }}>200+</b>
+                <span style={{ display: 'block', fontSize: '13px', color: 'var(--color-text-muted)', fontWeight: 600 }}>счастливых малышей</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ---------- B · Playful tiles: headline + colourful photo cluster ---------- */
+  if (direction === 'tiles') {
+    const tiles = [
+      { t: 'Танцы', c: 'pink', i: 'music' },
+      { t: 'Английский', c: 'sky', i: 'languages' },
+      { t: 'Робототехника', c: 'mint', i: 'bot' },
+      { t: 'Шахматы', c: 'purple', i: 'crown' },
+    ];
+    const tints = { pink: 'var(--pink-100)', sky: 'var(--sky-100)', mint: 'var(--mint-100)', purple: 'var(--purple-100)' };
+    const inks = { pink: 'var(--pink-500)', sky: 'var(--sky-500)', mint: 'var(--mint-500)', purple: 'var(--purple-500)' };
+    return (
+      <section style={{ position: 'relative', overflow: 'hidden', background: 'linear-gradient(180deg, var(--cream), var(--pink-50))' }}>
+        <div className="cs-hero-grid" style={{
+          maxWidth: 'var(--container-max)', margin: '0 auto',
+          padding: 'clamp(48px,7vw,88px) clamp(20px,5vw,48px)',
+          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'center',
+        }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+            <Badge color="sun" size="lg" iconLeft={<Ic n="sparkles" size={16} />}>Запись на новый год открыта</Badge>
+            <h1 style={{ font: 'var(--font-h1)', fontSize: 'clamp(40px,5.2vw,68px)', margin: 0 }}>
+              Чудо<br />начинается<br /><span className="cs-gradient-text">здесь</span>
+            </h1>
+            <p style={{ font: 'var(--font-lead)', fontSize: '19px', color: 'var(--color-text-muted)', maxWidth: '440px' }}>
+              Девять развивающих направлений, забота и пятиразовое питание — для малышей от 1 до 7 лет.
+            </p>
+            {ctas}
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px' }}>
+            <Photo caption="Игровая комната" icon="image" tint="pink" style={{ height: '210px', gridColumn: '1 / -1', boxShadow: 'var(--shadow-md)' }} />
+            {tiles.map((x) => (
+              <div key={x.t} style={{
+                background: tints[x.c], borderRadius: 'var(--radius-lg)', padding: '18px',
+                display: 'flex', flexDirection: 'column', gap: '10px', minHeight: '120px', justifyContent: 'space-between',
+                boxShadow: 'var(--shadow-sm)',
+              }}>
+                <span style={{ width: 42, height: 42, borderRadius: '50%', background: '#fff', color: inks[x.c], display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Ic n={x.i} size={22} />
+                </span>
+                <b style={{ fontFamily: 'var(--font-display)', fontSize: '18px', color: 'var(--ink-900)' }}>{x.t}</b>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ---------- C · Warm & calm: photo-led, reassuring ---------- */
+  return (
+    <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--cream)' }}>
+      <div style={{
+        maxWidth: 'var(--container-max)', margin: '0 auto',
+        padding: 'clamp(40px,5vw,72px) clamp(20px,5vw,48px)',
+      }}>
+        <div style={{ position: 'relative', borderRadius: 'var(--radius-2xl)', overflow: 'hidden', boxShadow: 'var(--shadow-lg)' }}>
+          <Photo caption="Тёплая атмосфера нашего садика" icon="image" tint="sky" style={{ height: '520px', borderRadius: 0 }} />
+          <div style={{
+            position: 'absolute', inset: 0,
+            background: 'linear-gradient(90deg, rgba(46,39,64,0.62) 0%, rgba(46,39,64,0.18) 55%, transparent 80%)',
+          }} />
+          <div style={{
+            position: 'absolute', left: 'clamp(24px,5vw,64px)', top: '50%', transform: 'translateY(-50%)',
+            maxWidth: '520px', display: 'flex', flexDirection: 'column', gap: '22px', color: '#fff',
+          }}>
+            <span style={{ font: 'var(--font-overline)', letterSpacing: 'var(--tracking-caps)', textTransform: 'uppercase', color: 'var(--yellow-300)' }}>
+              Семейный садик · 1–7 лет
+            </span>
+            <h1 style={{ font: 'var(--font-h1)', fontSize: 'clamp(36px,4.6vw,60px)', color: '#fff', margin: 0 }}>
+              Спокойно за&nbsp;ребёнка. Каждый день.
+            </h1>
+            <p style={{ font: 'var(--font-lead)', fontSize: '19px', color: 'rgba(255,255,255,0.92)' }}>
+              Забота, тёплая атмосфера и ежедневный отчёт в Telegram — чтобы вы всегда знали, как проходит день малыша.
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+              <Button variant="sun" size="lg" iconRight={<Ic n="arrow-right" size={20} />} onClick={() => scrollToId('enroll')}>Записаться на экскурсию</Button>
+              <Button variant="soft" size="lg" onClick={() => scrollToId('pricing')}>Узнать о ценах</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+window.Hero = Hero;

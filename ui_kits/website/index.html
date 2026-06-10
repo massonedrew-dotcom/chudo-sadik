@@ -1,0 +1,49 @@
+<!-- @dsCard group="Website" viewport="1280x860" name="Marketing homepage" subtitle="Full clickable site — 3 homepage directions, programmes, enrolment form" -->
+<!-- @startingPoint section="Website" subtitle="Чудо Садик marketing homepage — hero, programmes, enrolment" viewport="1280x860" -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Чудо Садик — развивающий садик для малышей</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; background: var(--cream); }
+  body { font-family: var(--font-body); color: var(--color-text); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Common.jsx" data-presets="react"></script>
+<script type="text/babel" src="Header.jsx" data-presets="react"></script>
+<script type="text/babel" src="Hero.jsx" data-presets="react"></script>
+<script type="text/babel" src="Programs.jsx" data-presets="react"></script>
+<script type="text/babel" src="Care.jsx" data-presets="react"></script>
+<script type="text/babel" src="Enroll.jsx" data-presets="react"></script>
+<script type="text/babel" src="Footer.jsx" data-presets="react"></script>
+<script type="text/babel" src="App.jsx" data-presets="react"></script>
+
+<script type="text/babel" data-presets="react">
+  function mount() {
+    const ns = window.DesignSystem_52b7c1;
+    if (!ns || !window.App) { setTimeout(mount, 60); return; }
+    const App = window.App;
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    // Keep Lucide icons rendered across React re-renders
+    const refresh = () => window.lucide && window.lucide.createIcons();
+    refresh();
+    let t;
+    const obs = new MutationObserver(() => { clearTimeout(t); t = setTimeout(refresh, 30); });
+    obs.observe(document.getElementById('root'), { childList: true, subtree: true });
+  }
+  mount();
+</script>
+</body>
+</html>

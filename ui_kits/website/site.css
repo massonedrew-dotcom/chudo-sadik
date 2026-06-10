@@ -1,0 +1,54 @@
+/* Чудо Садик — адаптив, анимации появления и мелкая полировка.
+   Цвета и шрифты не трогаем — всё на токенах дизайн-системы. */
+
+/* Страховка от горизонтального скролла из-за декоративных карточек со смещением */
+html, body { overflow-x: hidden; }
+
+/* ---------- Анимации появления при скролле ---------- */
+.cs-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s var(--ease-out, ease), transform 0.6s var(--ease-out, ease);
+  will-change: opacity, transform;
+}
+.cs-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+/* ---------- Мобильное меню ---------- */
+.cs-burger { display: none; }              /* по умолчанию (десктоп) скрыт */
+.cs-mobile-nav { display: none; }
+
+/* ---------- Планшеты и телефоны (<= 900px) ---------- */
+@media (max-width: 900px) {
+  .cs-hero-grid,
+  .cs-care-grid,
+  .cs-enroll-grid,
+  .cs-contacts-grid,
+  .cs-pricing-grid,
+  .cs-schedule-grid,
+  .cs-reviews-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .cs-programs-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Шапка: прячем горизонтальное меню и действия, показываем бургер */
+  .cs-nav { display: none !important; }
+  .cs-burger { display: inline-flex !important; }
+  .cs-mobile-nav.cs-mobile-nav-open { display: flex !important; }
+
+  /* Подвал в 2 колонки, бренд-блок на всю ширину */
+  .cs-footer-grid { grid-template-columns: 1fr 1fr !important; }
+  .cs-footer-brand { grid-column: 1 / -1 !important; }
+}
+
+/* ---------- Телефоны (<= 600px) ---------- */
+@media (max-width: 600px) {
+  .cs-programs-grid { grid-template-columns: 1fr !important; }
+  .cs-care-points { grid-template-columns: 1fr !important; }
+  .cs-footer-grid { grid-template-columns: 1fr !important; }
+}

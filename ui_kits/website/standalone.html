@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ===== Безопасность ===== -->
+<!-- Content Security Policy: ограничивает, откуда можно грузить скрипты/стили/картинки.
+     'unsafe-eval'/'unsafe-inline' нужны для Babel-в-браузере и инлайн-стилей дизайн-системы.
+     В продакшен-сборке (Vite) их следует убрать. Полноценные заголовки (HSTS, X-Frame-Options)
+     задаются на сервере — см. файлы _headers / .htaccess и SECURITY.md. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://unpkg.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<title>Чудо Садик — частный развивающий садик в Ташкенте для детей 1–7 лет</title>
+
+<!-- ===== SEO (под поиск в Ташкенте) ===== -->
+<meta name="description" content="Чудо Садик — частный развивающий садик в Ташкенте для малышей от 1 до 7 лет. 5-разовое питание, заботливые педагоги, английский, танцы, шахматы, робототехника и ежедневный отчёт в Telegram. Запишитесь на экскурсию!">
+<meta name="keywords" content="частный садик Ташкент, детский сад Ташкент, развивающий садик Ташкент, садик для малышей Ташкент, ясли Ташкент, bolalar bog'chasi Toshkent, дошкольное образование, Чудо Садик">
+<meta name="author" content="Чудо Садик by Color Baby House">
+<meta name="geo.region" content="UZ-TK">
+<meta name="geo.placename" content="Ташкент">
+<meta name="theme-color" content="#FF4D97">
+<link rel="canonical" href="https://chudo-sadik.uz/">
+<link rel="icon" type="image/png" href="../../assets/logo-sun.png">
+<link rel="apple-touch-icon" href="../../assets/logo-sun.png">
+
+<!-- ===== Open Graph (превью при шеринге в Telegram/WhatsApp/соцсетях) ===== -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Чудо Садик">
+<meta property="og:title" content="Чудо Садик — частный садик в Ташкенте, где детям хочется остаться">
+<meta property="og:description" content="Развивающий садик в Ташкенте для малышей от 1 до 7 лет. Забота, тёплая атмосфера и ежедневный отчёт в Telegram.">
+<meta property="og:image" content="../../assets/logo-chudo.png">
+<meta property="og:url" content="https://chudo-sadik.uz/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Чудо Садик — частный садик в Ташкенте">
+<meta name="twitter:description" content="Садик в Ташкенте для детей 1–7 лет: забота, развитие и ежедневный отчёт в Telegram.">
+<meta name="twitter:image" content="../../assets/logo-chudo.png">
+
+<!-- ===== Микроразметка для поиска и карт (Schema.org) =====
+     ВНИМАНИЕ: адрес, телефон и ссылки — заглушки, замените на реальные. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ChildCare",
+  "name": "Чудо Садик",
+  "description": "Частный развивающий садик в Ташкенте для малышей от 1 до 7 лет.",
+  "image": "https://chudo-sadik.uz/assets/logo-chudo.png",
+  "url": "https://chudo-sadik.uz/",
+  "telephone": "+998-90-123-45-67",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ул. Амира Темура, 1",
+    "addressLocality": "Ташкент",
+    "addressRegion": "Ташкент",
+    "addressCountry": "UZ"
+  },
+  "areaServed": { "@type": "City", "name": "Ташкент" },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    "opens": "08:00",
+    "closes": "20:00"
+  },
+  "sameAs": ["https://t.me/chudo_sadik"]
+}
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="site.css">
+<meta name="ext-resource-dependency" content="../../assets/logo-sun.png" data-resource-id="sun" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../../_ds_bundle.js"></script>
+<style>
+  html, body { margin: 0; background: var(--cream); }
+  body { font-family: var(--font-body); color: var(--color-text); }
+</style>
+<template id="__bundler_thumbnail" data-bg-color="#FFF7E8">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="600" cy="400" r="150" fill="#FDB022"/>
+    <g stroke="#F79009" stroke-width="26" stroke-linecap="round">
+      <line x1="600" y1="170" x2="600" y2="90"/>
+      <line x1="600" y1="630" x2="600" y2="710"/>
+      <line x1="370" y1="400" x2="290" y2="400"/>
+      <line x1="830" y1="400" x2="910" y2="400"/>
+      <line x1="438" y1="238" x2="382" y2="182"/>
+      <line x1="762" y1="238" x2="818" y2="182"/>
+      <line x1="438" y1="562" x2="382" y2="618"/>
+      <line x1="762" y1="562" x2="818" y2="618"/>
+    </g>
+  </svg>
+</template>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="Common.jsx" data-presets="react"></script>
+<script type="text/babel" src="Header.jsx" data-presets="react"></script>
+<script type="text/babel" src="Hero.jsx" data-presets="react"></script>
+<script type="text/babel" src="Programs.jsx" data-presets="react"></script>
+<script type="text/babel" src="Care.jsx" data-presets="react"></script>
+<script type="text/babel" src="DaySchedule.jsx" data-presets="react"></script>
+<script type="text/babel" src="Pricing.jsx" data-presets="react"></script>
+<script type="text/babel" src="Testimonials.jsx" data-presets="react"></script>
+<script type="text/babel" src="Enroll.jsx" data-presets="react"></script>
+<script type="text/babel" src="Contacts.jsx" data-presets="react"></script>
+<script type="text/babel" src="Footer.jsx" data-presets="react"></script>
+<script type="text/babel" src="QuickApply.jsx" data-presets="react"></script>
+<script type="text/babel" src="App.jsx" data-presets="react"></script>
+
+<script type="text/babel" data-presets="react">
+  function fixImgs() {
+    if (!window.__resources || !window.__resources.sun) return;
+    document.querySelectorAll('img[src$="logo-sun.png"]').forEach(function (im) {
+      im.src = window.__resources.sun;
+    });
+  }
+  // Плавное появление секций при прокрутке (с fallback'ом, если что-то не сработает)
+  let revealObserver = null;
+  function setupReveal() {
+    const els = document.querySelectorAll('.cs-reveal:not(.is-visible)');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); revealObserver.unobserve(e.target); }
+        });
+      }, { threshold: 0.12 });
+    }
+    els.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  function mount() {
+    const ns = window.DesignSystem_52b7c1;
+    if (!ns || !window.App) { setTimeout(mount, 60); return; }
+    const App = window.App;
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+    // Keep Lucide icons rendered + inlined logo wired across React re-renders
+    const refresh = () => { window.lucide && window.lucide.createIcons(); fixImgs(); setupReveal(); };
+    refresh();
+    let t;
+    const obs = new MutationObserver(() => { clearTimeout(t); t = setTimeout(refresh, 30); });
+    obs.observe(document.getElementById('root'), { childList: true, subtree: true });
+  }
+  mount();
+</script>
+</body>
+</html>
