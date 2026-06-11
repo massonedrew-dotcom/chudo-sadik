@@ -13,32 +13,34 @@ function Programs() {
     { name: 'Логика', dot: 'var(--cat-chess)' },
   ];
 
-  // img — реальное фото занятия (если есть); иначе показывается цветная плитка с иконкой.
+  // img — реальное фото; pos — какую часть кадра показать (чтобы лица не резались).
+  // Где фото нет — рисуется красивая плитка с иконкой.
   const programs = [
     { t: 'Английский язык', d: 'Живые занятия в игре — с самого раннего возраста.', i: 'languages', c: 'sky', g: 'Речь и язык' },
     { t: 'Логопед-дефектолог', d: 'Чистая речь и индивидуальный подход к каждому.', i: 'mic', c: 'sun', g: 'Речь и язык' },
-    { t: 'Танцы', d: 'Музыка, ритм и радость движения.', i: 'music', c: 'pink', g: 'Движение', img: '../../assets/photos/dance.jpg' },
-    { t: 'Тхэквондо', d: 'Дисциплина, сила и уверенность в себе.', i: 'swords', c: 'sky', g: 'Движение', img: '../../assets/photos/taekwondo.jpg' },
-    { t: 'Гимнастика', d: 'Здоровье, осанка и ловкость каждый день.', i: 'activity', c: 'mint', g: 'Движение', img: '../../assets/photos/gymnastics.jpg' },
-    { t: 'Массаж (курс)', d: 'Оздоровительный курс под присмотром специалиста.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: '../../assets/photos/massage.jpg' },
+    { t: 'Танцы', d: 'Музыка, ритм и радость движения.', i: 'music', c: 'pink', g: 'Движение', img: '../../assets/photos/dance.jpg', pos: 'center 28%' },
+    { t: 'Тхэквондо', d: 'Дисциплина, сила и уверенность в себе.', i: 'swords', c: 'sky', g: 'Движение', img: '../../assets/photos/taekwondo.jpg', pos: 'center 38%' },
+    { t: 'Гимнастика', d: 'Здоровье, осанка и ловкость каждый день.', i: 'activity', c: 'mint', g: 'Движение', img: '../../assets/photos/gymnastics.jpg', pos: 'center 52%' },
+    { t: 'Массаж (курс)', d: 'Оздоровительный курс под присмотром специалиста.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: '../../assets/photos/massage.jpg', pos: 'center 50%' },
     { t: 'Актёрское мастерство', d: 'Сцена, эмоции и уверенность в себе.', i: 'drama', c: 'orange', g: 'Творчество' },
     { t: 'Рисование', d: 'Краски, фантазия и мелкая моторика.', i: 'palette', c: 'sun', g: 'Творчество' },
     { t: 'Развивающие игры', d: 'Каждый день — новое маленькое открытие.', i: 'puzzle', c: 'pink', g: 'Творчество' },
     { t: 'Мастер-классы', d: 'Творческие занятия и новые умения.', i: 'sparkles', c: 'mint', g: 'Творчество' },
     { t: 'Шахматы', d: 'Логика, внимание и первые победы.', i: 'crown', c: 'purple', g: 'Логика' },
-    { t: 'Робототехника', d: 'Первые шаги в технике и конструировании.', i: 'bot', c: 'sky', g: 'Логика', img: '../../assets/photos/robotics.jpg' },
+    { t: 'Робототехника', d: 'Первые шаги в технике и конструировании.', i: 'bot', c: 'sky', g: 'Логика', img: '../../assets/photos/robotics.jpg', pos: 'center 40%' },
   ];
 
   const tile = {
-    pink:   { bg: 'var(--pink-100)',   fg: 'var(--pink-500)' },
-    sky:    { bg: 'var(--sky-100)',    fg: 'var(--sky-500)' },
-    mint:   { bg: 'var(--mint-100)',   fg: 'var(--mint-500)' },
-    sun:    { bg: 'var(--yellow-100)', fg: 'var(--yellow-600)' },
-    orange: { bg: 'var(--orange-100)', fg: 'var(--orange-500)' },
-    purple: { bg: 'var(--purple-100)', fg: 'var(--purple-500)' },
+    pink:   { a: 'var(--pink-100)',   b: 'var(--pink-50)',   fg: 'var(--pink-500)' },
+    sky:    { a: 'var(--sky-100)',    b: 'var(--sky-50)',    fg: 'var(--sky-500)' },
+    mint:   { a: 'var(--mint-100)',   b: 'var(--mint-50)',   fg: 'var(--mint-500)' },
+    sun:    { a: 'var(--yellow-100)', b: 'var(--yellow-50)', fg: 'var(--yellow-600)' },
+    orange: { a: 'var(--orange-100)', b: 'var(--orange-50)', fg: 'var(--orange-500)' },
+    purple: { a: 'var(--purple-100)', b: 'var(--purple-50)', fg: 'var(--purple-500)' },
   };
 
   const shown = filter === 'Все' ? programs : programs.filter((p) => p.g === filter);
+  const HEADER_H = 190;
 
   return (
     <section id="programs" className="cs-reveal" style={{ padding: 'var(--section-y) 0', background: 'var(--color-surface)', scrollMarginTop: '84px' }}>
@@ -69,13 +71,27 @@ function Programs() {
                   transition: 'transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out)',
                   display: 'flex', flexDirection: 'column',
                 }}>
-                {/* Шапка карточки: фото или цветная плитка с иконкой */}
+                {/* Шапка карточки: фото или красивая плитка с иконкой-стикером */}
                 {p.img ? (
                   <img src={p.img} alt={p.t} loading="lazy"
-                    style={{ display: 'block', width: '100%', height: '180px', objectFit: 'cover' }} />
+                    style={{ display: 'block', width: '100%', height: HEADER_H + 'px', objectFit: 'cover', objectPosition: p.pos || 'center' }} />
                 ) : (
-                  <div style={{ height: '180px', background: t.bg, color: t.fg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Ic n={p.i} size={48} />
+                  <div style={{
+                    height: HEADER_H + 'px', position: 'relative',
+                    background: 'linear-gradient(135deg, ' + t.a + ', ' + t.b + ')',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden',
+                  }}>
+                    {/* мягкие декоративные круги */}
+                    <span style={{ position: 'absolute', width: 90, height: 90, borderRadius: '50%', background: 'rgba(255,255,255,0.35)', top: -24, right: -20 }} />
+                    <span style={{ position: 'absolute', width: 60, height: 60, borderRadius: '50%', background: 'rgba(255,255,255,0.25)', bottom: -16, left: -10 }} />
+                    {/* иконка-стикер */}
+                    <span style={{
+                      width: 78, height: 78, borderRadius: '50%', background: '#fff', color: t.fg,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      boxShadow: 'var(--shadow-md)', position: 'relative',
+                    }}>
+                      <Ic n={p.i} size={36} />
+                    </span>
                   </div>
                 )}
                 <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
