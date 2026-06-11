@@ -5,14 +5,14 @@ function App() {
   return (
     <div style={{ background: 'var(--cream)' }}>
       <Header />
-      <Hero direction="sunshine" />
-      <Programs />
       <Banner />
-      <Care />
-      <DaySchedule />
       <Summer />
-      <Testimonials />
+      <Hero direction="sunshine" />
+      <Care />
+      <Programs />
+      <DaySchedule />
       <Enroll />
+      <Testimonials />
       <Contacts />
       <Footer />
 
