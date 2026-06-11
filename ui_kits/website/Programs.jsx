@@ -26,7 +26,7 @@ function Programs() {
     { t: 'Рисование', d: 'Краски, фантазия и мелкая моторика.', i: 'palette', c: 'sun', g: 'Творчество', img: '../../assets/photos/drawing.jpg', pos: 'center 35%' },
     { t: 'Развивающие игры', d: 'Каждый день — новое маленькое открытие.', i: 'puzzle', c: 'pink', g: 'Творчество', img: '../../assets/photos/games.jpg', pos: 'center 35%' },
     { t: 'Мастер-классы', d: 'Творческие занятия и новые умения.', i: 'sparkles', c: 'mint', g: 'Творчество', img: '../../assets/photos/crafts.jpg', pos: 'center 50%' },
-    { t: 'Шахматы', d: 'Логика, внимание и первые победы.', i: 'crown', c: 'purple', g: 'Логика' },
+    { t: 'Шахматы', d: 'Логика, внимание и первые победы.', i: 'crown', c: 'purple', g: 'Логика', img: '../../assets/photos/chess.jpg', pos: 'center 30%' },
     { t: 'Робототехника', d: 'Первые шаги в технике и конструировании.', i: 'bot', c: 'sky', g: 'Логика', img: '../../assets/photos/robotics.jpg', pos: 'center 40%' },
   ];
 
