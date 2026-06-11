@@ -37,7 +37,13 @@ function Care() {
 
         {/* Telegram report mock */}
         <div style={{ position: 'relative' }}>
-          <Photo src="../../assets/photos/kids-reading.jpg" alt="Дети в садике Чудо" objectPosition="center 35%" style={{ height: '380px', boxShadow: 'var(--shadow-lg)', border: '6px solid #fff' }} />
+          <Photo src="../../assets/photos/kids-reading.jpg" alt="Дети в садике Чудо — почему выбирают именно нас"
+            style={{
+              height: '560px', objectFit: 'contain',
+              background: 'linear-gradient(180deg, #FFF1F6 0%, #FFE4EE 100%)',
+              borderRadius: 'var(--radius-lg)',
+              boxShadow: 'var(--shadow-lg)', border: '6px solid #fff',
+            }} />
           <Card glow="none" style={{ position: 'absolute', right: '-20px', bottom: '-26px', width: '290px', padding: '16px', boxShadow: 'var(--shadow-xl)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
               <span style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--sky-400)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
