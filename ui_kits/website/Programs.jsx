@@ -16,16 +16,16 @@ function Programs() {
   // img — реальное фото; pos — какую часть кадра показать (чтобы лица не резались).
   // Где фото нет — рисуется красивая плитка с иконкой.
   const programs = [
-    { t: 'Английский язык', d: 'Живые занятия в игре — с самого раннего возраста.', i: 'languages', c: 'sky', g: 'Речь и язык', img: '../../assets/photos/english.jpg', pos: 'center 30%' },
+    { t: 'Английский язык', d: 'Живые занятия в игре — с самого раннего возраста.', i: 'languages', c: 'sky', g: 'Речь и язык', img: '../../assets/photos/english.jpg', pos: 'center 35%' },
     { t: 'Логопед-дефектолог', d: 'Чистая речь и индивидуальный подход к каждому.', i: 'mic', c: 'sun', g: 'Речь и язык', img: '../../assets/photos/speech.jpg', pos: 'center 50%' },
     { t: 'Танцы', d: 'Музыка, ритм и радость движения.', i: 'music', c: 'pink', g: 'Движение', img: '../../assets/photos/dance.jpg', pos: 'center 55%' },
     { t: 'Тхэквондо', d: 'Дисциплина, сила и уверенность в себе.', i: 'swords', c: 'sky', g: 'Движение', img: '../../assets/photos/taekwondo.jpg', pos: 'center 38%' },
     { t: 'Гимнастика', d: 'Здоровье, осанка и ловкость каждый день.', i: 'activity', c: 'mint', g: 'Движение', img: '../../assets/photos/gymnastics.jpg', pos: 'center 52%' },
     { t: 'Массаж (курс)', d: 'Оздоровительный курс под присмотром специалиста.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: '../../assets/photos/massage.jpg', pos: 'center 50%' },
-    { t: 'Актёрское мастерство', d: 'Сцена, эмоции и уверенность в себе.', i: 'drama', c: 'orange', g: 'Творчество', img: '../../assets/photos/acting.jpg', pos: 'center 30%' },
+    { t: 'Актёрское мастерство', d: 'Сцена, эмоции и уверенность в себе.', i: 'drama', c: 'orange', g: 'Творчество', img: '../../assets/photos/acting.jpg', pos: 'center 40%' },
     { t: 'Рисование', d: 'Краски, фантазия и мелкая моторика.', i: 'palette', c: 'sun', g: 'Творчество', img: '../../assets/photos/drawing.jpg', pos: 'center 35%' },
     { t: 'Развивающие игры', d: 'Каждый день — новое маленькое открытие.', i: 'puzzle', c: 'pink', g: 'Творчество', img: '../../assets/photos/games.jpg', pos: 'center 35%' },
-    { t: 'Мастер-классы', d: 'Творческие занятия и новые умения.', i: 'sparkles', c: 'mint', g: 'Творчество', img: '../../assets/photos/crafts.jpg', pos: 'center 40%' },
+    { t: 'Мастер-классы', d: 'Творческие занятия и новые умения.', i: 'sparkles', c: 'mint', g: 'Творчество', img: '../../assets/photos/crafts.jpg', pos: 'center 50%' },
     { t: 'Шахматы', d: 'Логика, внимание и первые победы.', i: 'crown', c: 'purple', g: 'Логика' },
     { t: 'Робототехника', d: 'Первые шаги в технике и конструировании.', i: 'bot', c: 'sky', g: 'Логика', img: '../../assets/photos/robotics.jpg', pos: 'center 40%' },
   ];
