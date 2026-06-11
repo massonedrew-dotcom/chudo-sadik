@@ -27,6 +27,7 @@ html, body { overflow-x: hidden; }
 @media (max-width: 900px) {
   .cs-hero-grid,
   .cs-care-grid,
+  .cs-summer-grid,
   .cs-enroll-grid,
   .cs-contacts-grid,
   .cs-pricing-grid,
