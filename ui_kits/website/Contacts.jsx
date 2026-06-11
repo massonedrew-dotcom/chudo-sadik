@@ -5,11 +5,12 @@ function Contacts() {
 
   // ← Редактируйте контактные данные здесь.
   //   href — куда ведёт ссылка (карта/звонок/Telegram); если нет — текст без ссылки.
+  const mapsUrl = 'https://yandex.uz/maps/?text=' + encodeURIComponent('Ташкент, улица Ракатбоши, 42');
   const info = [
-    { i: 'map-pin', t: 'Адрес',    v: 'г. Ташкент, ул. Амира Темура, 1', c: 'pink',
-      href: 'https://yandex.uz/maps/?text=' + encodeURIComponent('Ташкент, улица Амира Темура, 1') },
-    { i: 'phone',   t: 'Телефон',  v: '+998 90 123 45 67', c: 'sky',  href: 'tel:+998901234567' },
-    { i: 'send',    t: 'Telegram', v: '@chudo_sadik',      c: 'mint', href: 'https://t.me/chudo_sadik' },
+    { i: 'map-pin', t: 'Адрес',    v: 'г. Ташкент, ул. Ракатбоши, 42', c: 'pink', href: mapsUrl },
+    { i: 'phone',   t: 'Телефон',  v: '+998 94 671 26 26', c: 'sky',    href: 'tel:+998946712626' },
+    { i: 'phone',   t: 'Телефон',  v: '+998 90 176 69 99', c: 'sun',    href: 'tel:+998901766999' },
+    { i: 'send',    t: 'Telegram', v: '@chudo_sadik',      c: 'mint',   href: 'https://t.me/chudo_sadik' },
     { i: 'clock',   t: 'Часы работы', v: 'Ежедневно, 8:00–20:00', c: 'orange' },
   ];
 
@@ -18,6 +19,7 @@ function Contacts() {
     sky:    { bg: 'var(--sky-100)',    fg: 'var(--sky-500)' },
     mint:   { bg: 'var(--mint-100)',   fg: 'var(--mint-500)' },
     orange: { bg: 'var(--orange-100)', fg: 'var(--orange-500)' },
+    sun:    { bg: 'var(--yellow-100)', fg: 'var(--yellow-600)' },
   };
 
   return (
@@ -40,7 +42,7 @@ function Contacts() {
                 ? { href: x.href, target: x.href.startsWith('http') ? '_blank' : undefined, rel: x.href.startsWith('http') ? 'noopener noreferrer' : undefined }
                 : {};
               return (
-                <Wrap key={x.t} {...wrapProps} style={{
+                <Wrap key={x.t + x.v} {...wrapProps} style={{
                   display: 'flex', alignItems: 'center', gap: '16px',
                   background: 'var(--color-surface)', border: '1px solid var(--color-border)',
                   borderRadius: 'var(--radius-lg)', padding: '16px 18px', boxShadow: 'var(--shadow-sm)',
@@ -71,24 +73,23 @@ function Contacts() {
             </Button>
           </div>
 
-          {/* Map placeholder — замените на встраиваемую карту (Яндекс/Google) */}
-          <div style={{
-            position: 'relative', minHeight: '380px',
+          {/* Схема проезда — кликабельна, открывает Яндекс.Карты */}
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={{
+            position: 'relative', display: 'block', minHeight: '380px',
             borderRadius: 'var(--radius-2xl)', overflow: 'hidden',
             border: '6px solid #fff', boxShadow: 'var(--shadow-lg)',
-            background: 'linear-gradient(135deg, var(--sky-100), var(--mint-100))',
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '10px',
-            color: 'var(--ink-400)',
           }}>
-            <Ic n="map" size={40} />
-            <b style={{ fontFamily: 'var(--font-display)', fontSize: '18px', color: 'var(--ink-700)' }}>Карта проезда</b>
-            <span style={{ fontSize: '13px', fontWeight: 600 }}>сюда встраивается виджет карты</span>
+            <img src="../../assets/photos/map-route.jpg" alt="Схема проезда к садику Чудо — улица Ракатбоши, 42"
+              style={{ display: 'block', width: '100%', height: '100%', minHeight: '380px', objectFit: 'cover' }} />
             <span style={{
-              position: 'absolute', left: '50%', top: '46%', transform: 'translate(-50%,-50%)',
-              width: 18, height: 18, borderRadius: '50%', background: 'var(--color-primary)',
-              boxShadow: '0 0 0 8px rgba(255,77,151,0.25)',
-            }} />
-          </div>
+              position: 'absolute', left: '14px', bottom: '14px',
+              background: 'rgba(255,255,255,0.92)', borderRadius: 'var(--radius-pill)',
+              padding: '8px 14px', fontSize: '13px', fontWeight: 800, color: 'var(--ink-900)',
+              display: 'inline-flex', alignItems: 'center', gap: '6px', boxShadow: 'var(--shadow-sm)',
+            }}>
+              <Ic n="map-pin" size={15} color="var(--color-primary)" /> Открыть в Яндекс.Картах
+            </span>
+          </a>
         </div>
       </div>
     </section>

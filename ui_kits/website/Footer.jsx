@@ -35,7 +35,7 @@ function Footer() {
           <div style={{ display: 'flex', gap: '10px' }}>
             <IconButton icon={<Ic n="send" size={20} />} variant="surface" label="Telegram" onClick={() => window.open('https://t.me/chudo_sadik', '_blank', 'noopener')} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none' }} />
             <IconButton icon={<Ic n="camera" size={20} />} variant="surface" label="Instagram" onClick={() => window.open('https://instagram.com/chudo_sadik', '_blank', 'noopener')} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none' }} />
-            <IconButton icon={<Ic n="phone" size={20} />} variant="surface" label="Телефон" onClick={() => { window.location.href = 'tel:+998901234567'; }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none' }} />
+            <IconButton icon={<Ic n="phone" size={20} />} variant="surface" label="Телефон" onClick={() => { window.location.href = 'tel:+998946712626'; }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none' }} />
           </div>
         </div>
         {cols.map((c) => (

@@ -7,7 +7,8 @@ function Header() {
   const nav = [
     { label: 'О садике',       id: 'about' },
     { label: 'Занятия',        id: 'programs' },
-    { label: 'Распорядок дня', id: 'schedule' },
+    { label: 'Галерея',        id: 'gallery' },
+    { label: 'Распорядок дня',  id: 'schedule' },
     { label: 'Цены',           id: 'pricing' },
     { label: 'Контакты',       id: 'contacts' },
   ];

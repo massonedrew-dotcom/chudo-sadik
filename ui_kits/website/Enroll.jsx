@@ -28,8 +28,8 @@ function Enroll() {
               Оставьте заявку — перезвоним, ответим на вопросы и пригласим познакомиться с садиком и педагогами.
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '4px', flexWrap: 'wrap' }}>
-              <a href="tel:+998901234567" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
-                <Ic n="phone" size={18} color="var(--color-primary)" /> +998 90 123 45 67
+              <a href="tel:+998946712626" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
+                <Ic n="phone" size={18} color="var(--color-primary)" /> +998 94 671 26 26
               </a>
               <a href="https://t.me/chudo_sadik" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
                 <Ic n="send" size={18} color="var(--sky-500)" /> @chudo_sadik

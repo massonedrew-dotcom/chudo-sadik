@@ -48,7 +48,7 @@ function Hero({ direction = 'sunshine' }) {
             </div>
           </div>
           <div style={{ position: 'relative' }}>
-            <Photo caption="Счастливые дети на занятии" icon="sun" tint="sun"
+            <Photo src="../../assets/photos/playroom.jpg" alt="Игровая комната садика Чудо"
               style={{ height: '460px', boxShadow: 'var(--shadow-lg)', border: '6px solid #fff' }} />
             <div style={{
               position: 'absolute', bottom: '-22px', left: '-22px',

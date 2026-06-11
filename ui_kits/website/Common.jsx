@@ -4,8 +4,24 @@ const Ic = ({ n, size = 24, color, style = {} }) => (
   <i data-lucide={n} style={{ width: size, height: size, color, ...style }}></i>
 );
 
-/* Photo placeholder — marks where a real child/teacher photo belongs */
-function Photo({ caption = 'Фото', icon = 'image', tint = 'pink', radius = 'var(--radius-lg)', style = {} }) {
+/* Photo — реальное фото (если задан src) или плейсхолдер-заглушка.
+   src — путь к картинке, objectPosition — какую часть кадра показывать при обрезке. */
+function Photo({ caption = 'Фото', icon = 'image', tint = 'pink', radius = 'var(--radius-lg)', src = null, alt = '', objectPosition = 'center', style = {} }) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={alt || caption}
+        loading="lazy"
+        style={{
+          display: 'block', width: '100%', height: '100%',
+          objectFit: 'cover', objectPosition,
+          borderRadius: radius,
+          ...style,
+        }}
+      />
+    );
+  }
   const grad = {
     pink: 'linear-gradient(135deg, var(--pink-100), var(--orange-100))',
     sky: 'linear-gradient(135deg, var(--sky-100), var(--mint-100))',
