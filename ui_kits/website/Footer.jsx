@@ -33,9 +33,23 @@ function Footer() {
             Развивающий садик для малышей от 1 до 7 лет. Забота, тепло и каждый день — что-то новое.
           </p>
           <div style={{ display: 'flex', gap: '10px' }}>
-            <IconButton icon={<Ic n="send" size={20} />} variant="surface" label="Telegram" onClick={() => window.open('https://t.me/chudo_sadik', '_blank', 'noopener')} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none' }} />
-            <IconButton icon={<Ic n="camera" size={20} />} variant="surface" label="Instagram" onClick={() => window.open('https://instagram.com/chudo_sadik', '_blank', 'noopener')} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none' }} />
-            <IconButton icon={<Ic n="phone" size={20} />} variant="surface" label="Телефон" onClick={() => { window.location.href = 'tel:+998946712626'; }} style={{ background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none' }} />
+            {[
+              { i: 'send',   label: 'Telegram',  onClick: () => window.open('https://t.me/chudo_sadik', '_blank', 'noopener') },
+              { i: 'camera', label: 'Instagram', onClick: () => window.open('https://instagram.com/chudo_sadik', '_blank', 'noopener') },
+              { i: 'phone',  label: 'Телефон',   onClick: () => { window.location.href = 'tel:+998946712626'; } },
+            ].map((b) => (
+              <button key={b.label} type="button" aria-label={b.label} title={b.label} onClick={b.onClick}
+                className="cs-footer-social"
+                style={{
+                  width: 44, height: 44, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  borderRadius: 'var(--radius-circle)',
+                  background: 'rgba(255,255,255,0.1)', color: '#fff', border: 'none', cursor: 'pointer',
+                  transition: 'transform var(--dur-fast) var(--ease-bounce), background var(--dur-base) var(--ease-out)',
+                }}
+              >
+                <Ic n={b.i} size={20} />
+              </button>
+            ))}
           </div>
         </div>
         {cols.map((c) => (

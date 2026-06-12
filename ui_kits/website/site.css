@@ -47,6 +47,19 @@ html, body { overflow-x: hidden; }
   .cs-footer-brand { grid-column: 1 / -1 !important; }
 }
 
+/* ---------- Соц-кнопки в подвале ----------
+   :hover в CSS, а не в JS — иначе при клике по Telegram/Instagram (открытие в новой вкладке)
+   и Phone (tel:) фокус уходит из окна, mouseleave не срабатывает и кнопка «залипает» в светлом
+   состоянии. Поверх тёмного фона футера это выглядит как белая плашка. */
+.cs-footer-social { background: rgba(255,255,255,0.10) !important; }
+.cs-footer-social:hover,
+.cs-footer-social:focus-visible {
+  background: var(--pink-500, #FF4D97) !important;
+  transform: translateY(-2px) scale(1.05);
+  outline: none;
+}
+.cs-footer-social:active { transform: scale(0.94); }
+
 /* ---------- Телефоны (<= 600px) ---------- */
 @media (max-width: 600px) {
   .cs-programs-grid { grid-template-columns: 1fr !important; }

@@ -1,6 +1,6 @@
 /* Чудо Садик — Why parents choose us + daily Telegram report */
 function Care() {
-  const { SectionHeading, Card, Badge, Avatar } = window.DesignSystem_52b7c1;
+  const { SectionHeading } = window.DesignSystem_52b7c1;
   const { Ic, Photo } = window;
 
   const points = [
@@ -35,36 +35,14 @@ function Care() {
           </div>
         </div>
 
-        {/* Telegram report mock */}
-        <div style={{ position: 'relative' }}>
-          <Photo src="../../assets/photos/kids-reading.jpg" alt="Дети в садике Чудо — почему выбирают именно нас"
-            style={{
-              height: '560px', objectFit: 'contain',
-              background: 'linear-gradient(180deg, #FFF1F6 0%, #FFE4EE 100%)',
-              borderRadius: 'var(--radius-lg)',
-              boxShadow: 'var(--shadow-lg)', border: '6px solid #fff',
-            }} />
-          <Card glow="none" style={{ position: 'absolute', right: '-20px', bottom: '-26px', width: '290px', padding: '16px', boxShadow: 'var(--shadow-xl)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
-              <span style={{ width: 34, height: 34, borderRadius: '50%', background: 'var(--sky-400)', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Ic n="send" size={18} />
-              </span>
-              <div style={{ lineHeight: 1.2 }}>
-                <b style={{ fontSize: '14px' }}>Чудо Садик · группа</b>
-                <span style={{ display: 'block', fontSize: '12px', color: 'var(--color-text-muted)', fontWeight: 600 }}>сегодня, 12:30</span>
-              </div>
-            </div>
-            <div style={{ background: 'var(--sky-50)', borderRadius: 'var(--radius-md)', padding: '10px 12px', fontSize: '14px', color: 'var(--ink-700)', lineHeight: 1.5 }}>
-              Сегодня лепили солнышко из пластилина и гуляли в парке. Все малыши покушали с аппетитом! ☀️😊
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '12px' }}>
-              <Avatar name="М П" color="pink" size="xs" />
-              <Avatar name="А К" color="mint" size="xs" />
-              <Avatar name="О С" color="sky" size="xs" />
-              <Badge color="success" size="sm" style={{ marginLeft: '4px' }}>12 фото</Badge>
-            </div>
-          </Card>
-        </div>
+        {/* Фото «Почему выбирают именно нас» */}
+        <Photo src="../../assets/photos/kids-reading.jpg" alt="Дети в садике Чудо — почему выбирают именно нас"
+          style={{
+            height: '560px', objectFit: 'contain',
+            background: 'linear-gradient(180deg, #FFF1F6 0%, #FFE4EE 100%)',
+            borderRadius: 'var(--radius-lg)',
+            boxShadow: 'var(--shadow-lg)', border: '6px solid #fff',
+          }} />
       </div>
     </section>
   );
