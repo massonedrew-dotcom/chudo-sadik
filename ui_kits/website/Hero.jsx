@@ -22,7 +22,7 @@ function Hero({ direction = 'sunshine' }) {
       <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--cream)' }}>
         <div style={{
           position: 'absolute', inset: 0,
-          background: 'radial-gradient(circle at 76% 30%, var(--yellow-200) 0%, transparent 42%)',
+          background: 'radial-gradient(circle at 76% 30%, var(--pink-100) 0%, transparent 42%)',
           pointerEvents: 'none',
         }} />
         <Blob color="var(--pink-200)" size={260} style={{ left: '-60px', bottom: '-40px' }} />
