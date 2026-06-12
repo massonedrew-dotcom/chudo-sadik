@@ -18,7 +18,7 @@ function Header() {
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: 'rgba(255,251,244,0.82)', backdropFilter: 'blur(12px)',
+      background: 'rgba(255, 228, 239, 0.88)', backdropFilter: 'blur(12px)',
       borderBottom: '1px solid var(--color-border)',
     }}>
       <div style={{

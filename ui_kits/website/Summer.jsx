@@ -13,7 +13,7 @@ function Summer() {
   return (
     <section id="summer" className="cs-reveal" style={{
       padding: 'var(--section-y) 0',
-      background: 'linear-gradient(180deg, var(--sky-50), var(--mint-50))',
+      background: 'linear-gradient(180deg, var(--pink-50), var(--pink-100))',
       scrollMarginTop: '84px',
     }}>
       <div className="cs-summer-grid" style={{
