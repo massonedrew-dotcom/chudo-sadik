@@ -46,7 +46,7 @@ function QuickApply() {
           onClick={() => setOpen(true)}
           style={{
             display: 'flex', alignItems: 'center', gap: '12px',
-            background: 'var(--gradient-sun)', color: '#fff',
+            background: 'var(--gradient-pink)', color: '#fff',
             border: 'none', cursor: 'pointer',
             padding: '12px 16px 12px 14px', borderRadius: 'var(--radius-pill)',
             boxShadow: 'var(--shadow-pink, var(--shadow-lg))',
