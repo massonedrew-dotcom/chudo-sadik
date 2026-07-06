@@ -76,7 +76,7 @@ function Footer() {
             onMouseEnter={(e) => e.currentTarget.style.color = 'var(--pink-300)'}
             onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.7)'}>Политика конфиденциальности</a>
         </span>
-        <span>г. Ташкент · ежедневно 8:00–20:00</span>
+        <span>г. Ташкент · Пн–Пт 8:00–18:00</span>
       </div>
     </footer>
   );

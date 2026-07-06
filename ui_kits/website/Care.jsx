@@ -4,10 +4,18 @@ function Care() {
   const { Ic, Photo } = window;
 
   const points = [
-    { i: 'shield-check', t: 'Безопасность', d: 'Видеонаблюдение, контроль доступа и забота 24/7.' },
-    { i: 'utensils', t: '5-разовое питание', d: 'Сбалансированное меню для растущего организма.' },
-    { i: 'heart', t: 'Тёплая атмосфера', d: 'Маленькие группы и внимание к каждому ребёнку.' },
-    { i: 'send', t: 'Ежедневный отчёт', d: 'Фото и новости дня в вашей Telegram-группе.' },
+    { i: 'heart-handshake', t: 'Индивидуальный подход', d: 'Внимание к особенностям и темпу каждого ребёнка.' },
+    { i: 'graduation-cap', t: 'Подготовка к школе', d: 'Комплексная программа развития и обучения.' },
+    { i: 'users', t: 'Опытные педагоги', d: '10 квалифицированных педагогов и специалистов.' },
+    { i: 'shield-check', t: 'Безопасная среда', d: 'Комфортные и безопасные условия для детей.' },
+    { i: 'utensils', t: '5-разовое питание', d: 'Полноценное сбалансированное меню каждый день.' },
+    { i: 'clock', t: 'Чёткий режим дня', d: 'Занятия, прогулки, сон и отдых — всё вовремя.' },
+  ];
+
+  const stats = [
+    { n: '20 лет', t: 'опыта работы' },
+    { n: '10', t: 'педагогов и специалистов' },
+    { n: '1–7 лет', t: 'принимаем малышей' },
   ];
 
   return (
@@ -17,9 +25,25 @@ function Care() {
         display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '56px', alignItems: 'center',
       }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-          <SectionHeading align="left" eyebrow="Почему мы" title="Спокойно за ребёнка — каждый день">
-            Мы заботимся не только о малышах, но и о спокойствии родителей.
+          <SectionHeading align="left" eyebrow="О садике" title="Почему выбирают Чудо">
+            Частный развивающий садик в Ташкенте для детей от 1 до 7 лет — от раннего возраста
+            до подготовки к школе. Помогаем раскрыть способности, развить самостоятельность,
+            уверенность в себе и любовь к обучению.
           </SectionHeading>
+
+          {/* Ключевые цифры о садике */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+            {stats.map((s) => (
+              <div key={s.n} style={{
+                flex: '1 1 120px', background: 'var(--color-surface)', border: '1px solid var(--color-border)',
+                borderRadius: 'var(--radius-lg)', padding: '14px 16px', boxShadow: 'var(--shadow-sm)',
+              }}>
+                <b style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '26px', color: 'var(--color-primary)', display: 'block', lineHeight: 1.1 }}>{s.n}</b>
+                <span style={{ fontSize: '13px', color: 'var(--color-text-muted)', fontWeight: 600 }}>{s.t}</span>
+              </div>
+            ))}
+          </div>
+
           <div className="cs-care-points" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             {points.map((p) => (
               <div key={p.t} style={{ display: 'flex', gap: '14px' }}>

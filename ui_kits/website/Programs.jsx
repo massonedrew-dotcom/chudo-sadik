@@ -1,6 +1,6 @@
 /* Чудо Садик — Programmes grid with category filter and photos */
 function Programs() {
-  const { SectionHeading, Tag } = window.DesignSystem_52b7c1;
+  const { SectionHeading, Tag, Badge } = window.DesignSystem_52b7c1;
   const { Ic } = window;
   const [filter, setFilter] = React.useState('Все');
   const [lifted, setLifted] = React.useState('');
@@ -15,20 +15,29 @@ function Programs() {
 
   // img — реальное фото; pos — какую часть кадра показать (чтобы лица не резались).
   // Где фото нет — рисуется красивая плитка с иконкой.
+  // age — возраст, freq — периодичность, cost — оплата (included / extra / clarify).
   const programs = [
-    { t: 'Английский язык', d: 'Живые занятия в игре — с самого раннего возраста.', i: 'languages', c: 'sky', g: 'Речь и язык', img: '../../assets/photos/english.jpg', pos: 'center 35%' },
-    { t: 'Логопед-дефектолог', d: 'Чистая речь и индивидуальный подход к каждому.', i: 'mic', c: 'sun', g: 'Речь и язык', img: '../../assets/photos/speech.jpg', pos: 'center 50%' },
-    { t: 'Танцы', d: 'Музыка, ритм и радость движения.', i: 'music', c: 'pink', g: 'Движение', img: '../../assets/photos/dance.jpg', pos: 'center 55%' },
+    { t: 'Английский язык', d: 'Разговорные навыки и знакомство с языком через игры и общение.', i: 'languages', c: 'sky', g: 'Речь и язык', img: '../../assets/photos/english.jpg', pos: 'center 35%', age: 'от 3 лет', freq: '2–3 раза в неделю', cost: 'included' },
+    { t: 'Подготовка к школе', d: 'Чтение, письмо, логика и математические навыки.', i: 'graduation-cap', c: 'sun', g: 'Речь и язык', img: '../../assets/photos/kids-reading.jpg', pos: 'center 40%', age: '5–7 лет', freq: 'ежедневно', cost: 'included' },
+    { t: 'Логопед-дефектолог', d: 'Коррекция речи и развитие речевых навыков.', i: 'mic', c: 'purple', g: 'Речь и язык', img: '../../assets/photos/speech.jpg', pos: 'center 50%', age: 'по рекомендации', freq: 'индивидуально', cost: 'extra' },
+    { t: 'Танцы', d: 'Координация, чувство ритма и пластика.', i: 'music', c: 'pink', g: 'Движение', img: '../../assets/photos/dance.jpg', pos: 'center 55%', age: 'от 3 лет', freq: '2 раза в неделю', cost: 'included' },
     { t: 'Тхэквондо', d: 'Дисциплина, сила и уверенность в себе.', i: 'swords', c: 'sky', g: 'Движение', img: '../../assets/photos/taekwondo.jpg', pos: 'center 38%' },
-    { t: 'Гимнастика', d: 'Здоровье, осанка и ловкость каждый день.', i: 'activity', c: 'mint', g: 'Движение', img: '../../assets/photos/gymnastics.jpg', pos: 'center 52%' },
-    { t: 'Массаж (курс)', d: 'Оздоровительный курс под присмотром специалиста.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: '../../assets/photos/massage.jpg', pos: 'center 50%' },
+    { t: 'Гимнастика', d: 'Здоровье, гибкость и координация.', i: 'activity', c: 'mint', g: 'Движение', img: '../../assets/photos/gymnastics.jpg', pos: 'center 52%', age: 'от 2 лет', cost: 'included' },
+    { t: 'Массаж', d: 'Оздоровительный курс для укрепления здоровья.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: '../../assets/photos/massage.jpg', pos: 'center 50%', age: 'от 1 года', cost: 'included' },
     { t: 'Актёрское мастерство', d: 'Сцена, эмоции и уверенность в себе.', i: 'drama', c: 'orange', g: 'Творчество', img: '../../assets/photos/acting.jpg', pos: 'center 40%' },
     { t: 'Рисование', d: 'Краски, фантазия и мелкая моторика.', i: 'palette', c: 'sun', g: 'Творчество', img: '../../assets/photos/drawing.jpg', pos: 'center 35%' },
     { t: 'Развивающие игры', d: 'Каждый день — новое маленькое открытие.', i: 'puzzle', c: 'pink', g: 'Творчество', img: '../../assets/photos/games.jpg', pos: 'center 35%' },
     { t: 'Мастер-классы', d: 'Творческие занятия и новые умения.', i: 'sparkles', c: 'mint', g: 'Творчество', img: '../../assets/photos/crafts.jpg', pos: 'center 50%' },
-    { t: 'Шахматы', d: 'Логика, внимание и первые победы.', i: 'crown', c: 'purple', g: 'Логика', img: '../../assets/photos/chess.jpg', pos: 'center 30%' },
-    { t: 'Робототехника', d: 'Первые шаги в технике и конструировании.', i: 'bot', c: 'sky', g: 'Логика', img: '../../assets/photos/robotics.jpg', pos: 'center 40%' },
+    { t: 'Шахматы', d: 'Логическое мышление и концентрация.', i: 'crown', c: 'purple', g: 'Логика', img: '../../assets/photos/chess.jpg', pos: 'center 30%', age: 'от 5 лет', freq: '1–2 раза в неделю', cost: 'clarify' },
+    { t: 'Робототехника', d: 'Конструирование и основы технического мышления.', i: 'bot', c: 'sky', g: 'Логика', img: '../../assets/photos/robotics.jpg', pos: 'center 40%', age: 'от 5 лет', freq: '1–2 раза в неделю', cost: 'clarify' },
   ];
+
+  // Метки стоимости занятия.
+  const costMeta = {
+    included: { label: 'Входит в стоимость', color: 'success' },
+    extra:    { label: 'Оплачивается отдельно', color: 'secondary' },
+    clarify:  { label: 'Уточняется', color: 'neutral' },
+  };
 
   const tile = {
     pink:   { a: 'var(--pink-100)',   b: 'var(--pink-50)',   fg: 'var(--pink-500)' },
@@ -94,9 +103,16 @@ function Programs() {
                     </span>
                   </div>
                 )}
-                <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
                   <h3 style={{ font: 'var(--font-h4)', fontSize: '20px', color: 'var(--color-text)', margin: 0 }}>{p.t}</h3>
                   <p style={{ font: 'var(--font-body-r)', color: 'var(--color-text-muted)', margin: 0 }}>{p.d}</p>
+                  {(p.age || p.freq || p.cost) && (
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: 'auto', paddingTop: '10px' }}>
+                      {p.age && <Badge color="neutral" size="sm" iconLeft={<Ic n="cake" size={12} />}>{p.age}</Badge>}
+                      {p.freq && <Badge color="info" size="sm" iconLeft={<Ic n="calendar-days" size={12} />}>{p.freq}</Badge>}
+                      {p.cost && <Badge color={costMeta[p.cost].color} size="sm">{costMeta[p.cost].label}</Badge>}
+                    </div>
+                  )}
                 </div>
               </div>
             );

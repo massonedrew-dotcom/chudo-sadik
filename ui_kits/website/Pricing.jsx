@@ -5,28 +5,27 @@ function Pricing() {
 
   // ← Редактируйте тарифы здесь. price/period — цена и период,
   //   featured — выделенный «популярный» тариф, feats — список включённого.
-  //   ВНИМАНИЕ: цифры цен — заглушки, замените на реальные.
   const plans = [
     {
-      name: 'Половина дня',
-      price: '2 000 000', period: 'сум / мес',
-      desc: 'Утро в садике до обеда.',
+      name: 'Разовое посещение',
+      price: '250 000', period: 'сум / день',
+      desc: 'Полный день без абонемента.',
       color: 'sky', featured: false,
-      feats: ['Пребывание 8:00–13:00', '3-разовое питание', 'Развивающие занятия', 'Утренняя прогулка'],
+      feats: ['Пребывание 08:00–18:00', '5-разовое питание', 'Развивающие занятия', 'Прогулки и игры'],
     },
     {
       name: 'Полный день',
-      price: '3 000 000', period: 'сум / мес',
-      desc: 'Весь день с заботой и развитием.',
+      price: '4 500 000', period: 'сум / мес',
+      desc: 'Пятидневка, 08:00–18:00.',
       color: 'pink', featured: true,
-      feats: ['Пребывание 8:00–20:00', '5-разовое питание', 'Все развивающие занятия', 'Тихий час', 'Ежедневный отчёт в Telegram'],
+      feats: ['Присмотр и уход', '5-разовое питание', 'Развивающие занятия', 'Учебные материалы', 'Прогулки и досуг', 'Подготовка к школе'],
     },
     {
-      name: 'Группа выходного дня',
-      price: '150 000', period: 'сум / день',
-      desc: 'Суббота с пользой и игрой.',
+      name: 'Суббота',
+      price: '200 000', period: 'сум / день',
+      desc: 'Дополнительный день по желанию.',
       color: 'mint', featured: false,
-      feats: ['Занятия и творчество', 'Питание', 'Присмотр и забота', 'Гибкое посещение'],
+      feats: ['Пребывание в субботу', '5-разовое питание', 'Занятия и творчество', 'Присмотр и забота'],
     },
   ];
 
@@ -101,6 +100,94 @@ function Pricing() {
               </div>
             );
           })}
+        </div>
+
+        {/* Что входит / доплаты / скидка */}
+        <div className="cs-pricing-note" style={{
+          display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px',
+          margin: '40px auto 0', maxWidth: '980px',
+        }}>
+          <div style={{
+            background: 'var(--color-surface)', border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-xl)', padding: '24px 26px', boxShadow: 'var(--shadow-sm)',
+          }}>
+            <b style={{ fontFamily: 'var(--font-display)', fontSize: '18px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <Ic n="check-circle" size={20} color="var(--mint-500)" /> В стоимость входит
+            </b>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
+              {['Присмотр и уход', 'Развивающие занятия', 'Пятиразовое питание', 'Учебные материалы', 'Прогулки и досуговые мероприятия', 'Подготовка к школе'].map((f) => (
+                <span key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'var(--ink-700)' }}>
+                  <span style={{ width: 20, height: 20, flex: 'none', borderRadius: '50%', background: 'var(--mint-50)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Ic n="check" size={13} />
+                  </span>
+                  {f}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            background: 'var(--color-surface)', border: '1px solid var(--color-border)',
+            borderRadius: 'var(--radius-xl)', padding: '24px 26px', boxShadow: 'var(--shadow-sm)',
+            display: 'flex', flexDirection: 'column',
+          }}>
+            <b style={{ fontFamily: 'var(--font-display)', fontSize: '18px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '14px' }}>
+              <Ic n="plus-circle" size={20} color="var(--orange-500)" /> Оплачивается отдельно
+            </b>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '9px' }}>
+              {['Индивидуальные занятия с логопедом', 'Специализированный массаж', '«Почемучка»'].map((f) => (
+                <span key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', color: 'var(--ink-700)' }}>
+                  <span style={{ width: 20, height: 20, flex: 'none', borderRadius: '50%', background: 'var(--orange-50)', color: 'var(--orange-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Ic n="plus" size={13} />
+                  </span>
+                  {f}
+                </span>
+              ))}
+            </div>
+            <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
+              <Badge color="success" variant="soft" size="lg" iconLeft={<Ic n="gift" size={16} />}>
+                Скидка на второго ребёнка — 5%
+              </Badge>
+            </div>
+          </div>
+        </div>
+
+        {/* Няня-центр — кратковременное пребывание */}
+        <div style={{
+          margin: '24px auto 0', maxWidth: '980px',
+          background: 'var(--gradient-sunrise)', borderRadius: 'var(--radius-2xl)',
+          padding: 'clamp(24px,3vw,36px)', boxShadow: 'var(--shadow-sm)',
+          display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: '28px', alignItems: 'center',
+        }} className="cs-nanny-grid">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <Badge color="primary" variant="solid" size="lg" style={{ alignSelf: 'flex-start' }} iconLeft={<Ic n="baby" size={16} />}>
+              Няня-центр
+            </Badge>
+            <h3 style={{ font: 'var(--font-h4)', fontSize: '24px', margin: 0 }}>Кратковременное пребывание</h3>
+            <p style={{ font: 'var(--font-body-r)', color: 'var(--ink-700)', margin: 0, maxWidth: '520px' }}>
+              Оставьте малыша на несколько часов под присмотром воспитателей — без обязательного
+              посещения полного дня. В программу входят игры, развивающие занятия, прогулки и питание
+              (в зависимости от времени пребывания). Формат — разовое посещение.
+            </p>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', alignItems: 'flex-start' }}>
+            {[
+              { i: 'gamepad-2', t: 'Игры и развивающие занятия' },
+              { i: 'sun', t: 'Прогулки на свежем воздухе' },
+              { i: 'utensils', t: 'Питание по времени пребывания' },
+            ].map((x) => (
+              <span key={x.t} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', fontWeight: 600, color: 'var(--ink-700)' }}>
+                <span style={{ width: 34, height: 34, flex: 'none', borderRadius: '50%', background: '#fff', color: 'var(--color-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: 'var(--shadow-sm)' }}>
+                  <Ic n={x.i} size={17} />
+                </span>
+                {x.t}
+              </span>
+            ))}
+            <Button variant="primary" size="md" iconRight={<Ic n="arrow-right" size={18} />}
+              onClick={() => scrollToId && scrollToId('enroll')} style={{ marginTop: '6px' }}>
+              Уточнить стоимость
+            </Button>
+          </div>
         </div>
 
         <p style={{ textAlign: 'center', marginTop: '24px', fontSize: '14px', color: 'var(--color-text-subtle)' }}>

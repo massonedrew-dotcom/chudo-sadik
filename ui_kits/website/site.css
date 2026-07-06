@@ -42,6 +42,8 @@ body { background: var(--cream); }
   .cs-enroll-grid,
   .cs-contacts-grid,
   .cs-pricing-grid,
+  .cs-pricing-note,
+  .cs-nanny-grid,
   .cs-schedule-grid,
   .cs-reviews-grid {
     grid-template-columns: 1fr !important;

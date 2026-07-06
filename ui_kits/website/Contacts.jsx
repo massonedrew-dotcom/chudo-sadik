@@ -11,7 +11,7 @@ function Contacts() {
     { i: 'phone',   t: 'Телефон',  v: '+998 94 671 26 26', c: 'sky',    href: 'tel:+998946712626' },
     { i: 'phone',   t: 'Телефон',  v: '+998 90 176 69 99', c: 'sun',    href: 'tel:+998901766999' },
     { i: 'send',    t: 'Telegram', v: '@chudo_sadik',      c: 'mint',   href: 'https://t.me/chudo_sadik' },
-    { i: 'clock',   t: 'Часы работы', v: 'Ежедневно, 8:00–20:00', c: 'orange' },
+    { i: 'clock',   t: 'Часы работы', v: 'Пн–Пт, 8:00–18:00 · сб — по записи', c: 'orange' },
   ];
 
   const chip = {

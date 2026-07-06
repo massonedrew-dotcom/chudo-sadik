@@ -9,6 +9,7 @@ function Header() {
     { label: 'Занятия',        id: 'programs' },
     { label: 'Лето',           id: 'summer' },
     { label: 'Распорядок дня',  id: 'schedule' },
+    { label: 'Цены',           id: 'pricing' },
     { label: 'Отзывы',         id: 'reviews' },
     { label: 'Контакты',       id: 'contacts' },
   ];

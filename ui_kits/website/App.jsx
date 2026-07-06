@@ -1,6 +1,6 @@
 /* Чудо Садик — Website app shell */
 function App() {
-  const { Header, Hero, Programs, Banner, Care, DaySchedule, Summer, Testimonials, Enroll, Contacts, Footer, QuickApply } = window;
+  const { Header, Hero, Programs, Banner, Care, DaySchedule, Summer, Pricing, Testimonials, Enroll, Contacts, Footer, QuickApply } = window;
 
   return (
     <div style={{ background: 'var(--cream)' }}>
@@ -11,6 +11,7 @@ function App() {
       <Care />
       <Programs />
       <DaySchedule />
+      <Pricing />
       <Enroll />
       <Testimonials />
       <Contacts />
