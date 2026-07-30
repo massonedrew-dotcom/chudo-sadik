@@ -361,44 +361,70 @@
 }
 
 /* ============================================================
-   9. Сцена первого экрана: солнце с лучами, летящие шарики, искры
+   9. Садиковая сцена на фоне: солнце, облака, шарики, звёздочки
+   Живёт внутри .cs-backdrop, то есть видна на всём сайте, а не только
+   на первом экране.
    ============================================================ */
-
-.cs-scene {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* Солнце: неподвижное ядро + вращающийся венец лучей */
 .cs-sun-core,
 .cs-sun-rays {
   position: absolute;
-  right: -78px; top: -78px;
-  width: 240px; height: 240px;
+  right: -90px; top: -90px;
+  width: 300px; height: 300px;
   border-radius: 50%;
 }
 .cs-sun-core {
-  inset: auto;
   background: radial-gradient(circle, #FFD666 0%, #FFC53D 62%, transparent 68%);
-  opacity: 0.5;
+  opacity: 0.42;
 }
 .cs-sun-rays {
   background: repeating-conic-gradient(
     from 0deg,
-    rgba(255, 193, 61, 0.55) 0deg 6deg,
+    rgba(255, 193, 61, 0.5) 0deg 6deg,
     transparent 6deg 20deg
   );
   /* вырезаем середину, чтобы лучи шли от края ядра, а не из точки */
   -webkit-mask: radial-gradient(circle, transparent 33%, #000 35%);
           mask: radial-gradient(circle, transparent 33%, #000 35%);
-  animation: cs-spin 26s linear infinite;
-  opacity: 0.75;
+  animation: cs-spin 30s linear infinite;
+  opacity: 0.6;
 }
 
-/* Шарики: поднимаются снизу вверх и уплывают за край сцены.
+/* Облака: плывут слева направо через весь экран.
+   Форма — три круга: сам блок и два псевдоэлемента. */
+.cs-cloud {
+  position: absolute;
+  top: var(--y, 20%);
+  left: 0;
+  width: var(--s, 140px);
+  height: calc(var(--s, 140px) * 0.42);
+  background: #fff;
+  border-radius: 999px;
+  opacity: var(--o, 0.5);
+  animation: cs-cloud-drift var(--t, 70s) linear var(--d, 0s) infinite;
+}
+.cs-cloud::before,
+.cs-cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.cs-cloud::before {
+  width: 52%; height: 108%;
+  left: 14%; bottom: 42%;
+}
+.cs-cloud::after {
+  width: 38%; height: 82%;
+  right: 16%; bottom: 46%;
+}
+@keyframes cs-cloud-drift {
+  from { transform: translate3d(calc(-1 * var(--s, 140px) - 40px), 0, 0); }
+  to   { transform: translate3d(100vw, 0, 0); }
+}
+
+/* Шарики: поднимаются со дна экрана и уходят за верхний край.
    --c цвет, --t длительность, --d задержка, --x горизонтальный снос. */
 .cs-balloon {
   position: absolute;
@@ -425,11 +451,13 @@
   background: rgba(46, 39, 64, 0.16);
   transform: translateX(-50%);
 }
+/* Путь считается от высоты окна: слой фиксированный, шарик должен пройти
+   весь экран целиком, а не заранее заданные 880px. */
 @keyframes cs-balloon-up {
-  0%        { transform: translate3d(0, 0, 0) rotate(-5deg);                 opacity: 0;    }
-  8%        {                                                                opacity: 0.62; }
-  88%       {                                                                opacity: 0.52; }
-  100%      { transform: translate3d(var(--x, 30px), -880px, 0) rotate(6deg); opacity: 0;    }
+  0%   { transform: translate3d(0, 0, 0) rotate(-5deg);                              opacity: 0;    }
+  8%   {                                                                             opacity: 0.55; }
+  88%  {                                                                             opacity: 0.45; }
+  100% { transform: translate3d(var(--x, 30px), calc(-100vh - 200px), 0) rotate(6deg); opacity: 0;  }
 }
 
 /* Искры-звёздочки — мерцают вразнобой */
@@ -583,7 +611,7 @@
     transition: none !important;
   }
   .cs-progress,
-  .cs-scene,
+  .cs-backdrop,
   .cs-marquee { display: none; }
 }
 
@@ -621,18 +649,20 @@
 
   .cs-parallax { transform: none !important; }
 
-  /* Сцена и бегущая строка держатся только на движении — без него убираем совсем.
-     Фон оставляем, но замораживаем: он несёт цвет, а не движение. */
-  .cs-scene,
+  /* Бегущая строка держится только на движении — без него убираем совсем */
   .cs-marquee { display: none !important; }
 
+  /* Летящие элементы фона без анимации застыли бы кучей у нижнего края —
+     прячем их, а цветную подложку и солнце оставляем неподвижными. */
+  .cs-balloon,
+  .cs-cloud,
+  .cs-sparkle { display: none !important; }
+
   .cs-backdrop-blob,
-  .cs-backdrop-dots { animation: none !important; }
+  .cs-backdrop-dots,
+  .cs-sun-rays { animation: none !important; }
 
   .cs-headline .cs-word,
-  .cs-sun-rays,
-  .cs-balloon,
-  .cs-sparkle,
   .cs-marquee-track {
     animation: none !important;
     opacity: 1 !important;

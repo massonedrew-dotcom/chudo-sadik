@@ -7,7 +7,7 @@ function Enroll() {
   const [phone, setPhone] = React.useState('');
 
   return (
-    <section id="enroll" style={{ padding: 'var(--section-y) 0', scrollMarginTop: '84px' }}>
+    <section id="enroll" style={{ padding: 'var(--section-y) 0', scrollMarginTop: '92px' }}>
       <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)' }}>
         <div style={{
           position: 'relative', overflow: 'hidden',

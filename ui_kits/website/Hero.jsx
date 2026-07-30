@@ -21,36 +21,8 @@ function Hero({ direction = 'sunshine' }) {
     </div>
   );
 
-  /* Декоративная сцена первого экрана: солнце с лучами, летящие шарики, искры.
-     Только оформление — от скринридеров скрыта. Анимации — в motion.css. */
-  const balloons = [
-    { c: '#FF6FA5', left: '6%',  t: '17s', d: '0s',    x: '38px'  },
-    { c: '#7FD1F5', left: '18%', t: '22s', d: '-6s',   x: '-26px' },
-    { c: '#FFD666', left: '31%', t: '19s', d: '-12s',  x: '30px'  },
-    { c: '#B39DFF', left: '62%', t: '24s', d: '-3s',   x: '-34px' },
-    { c: '#7BDCB5', left: '78%', t: '20s', d: '-15s',  x: '24px'  },
-    { c: '#FF8A5B', left: '90%', t: '26s', d: '-9s',   x: '-20px' },
-  ];
-  const sparkles = [
-    { left: '12%', top: '22%', d: '0s'    },
-    { left: '46%', top: '12%', d: '-1.1s' },
-    { left: '69%', top: '70%', d: '-2.2s' },
-    { left: '86%', top: '34%', d: '-0.6s' },
-    { left: '27%', top: '78%', d: '-1.7s' },
-  ];
-  const scene = (
-    <div className="cs-scene" aria-hidden="true">
-      <span className="cs-sun-core" />
-      <span className="cs-sun-rays" />
-      {balloons.map((b, i) => (
-        <span key={i} className="cs-balloon"
-          style={{ left: b.left, '--c': b.c, '--t': b.t, '--d': b.d, '--x': b.x }} />
-      ))}
-      {sparkles.map((s, i) => (
-        <span key={i} className="cs-sparkle" style={{ left: s.left, top: s.top, '--d': s.d }} />
-      ))}
-    </div>
-  );
+  /* Солнце, шарики и искры переехали в общий фон сайта (.cs-backdrop в App.jsx):
+     раньше они жили только здесь и на первом экране дублировались бы с ним. */
 
   /* ---------- A · Sunshine: gradient headline + sun + photo ---------- */
   if (direction === 'sunshine') {
@@ -61,7 +33,6 @@ function Hero({ direction = 'sunshine' }) {
           background: 'radial-gradient(circle at 76% 30%, var(--pink-100) 0%, transparent 42%)',
           pointerEvents: 'none',
         }} />
-        {scene}
         {/* Декоративные пятна: одно парит, другое сдвигается при прокрутке */}
         <Blob color="var(--pink-200)" size={260} className="cs-float-slow" style={{ left: '-60px', bottom: '-40px' }} />
         <Blob color="var(--yellow-100)" size={200} className="cs-float cs-float-lag" style={{ right: '-40px', top: '-60px' }} />

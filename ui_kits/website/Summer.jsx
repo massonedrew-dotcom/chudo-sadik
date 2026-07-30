@@ -14,7 +14,7 @@ function Summer() {
     <section id="summer" style={{
       padding: 'var(--section-y) 0',
       background: 'linear-gradient(180deg, var(--pink-50), var(--pink-100))',
-      scrollMarginTop: '84px',
+      scrollMarginTop: '92px',
     }}>
       <div className="cs-summer-grid" style={{
         maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)',

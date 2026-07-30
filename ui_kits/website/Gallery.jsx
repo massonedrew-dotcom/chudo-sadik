@@ -18,7 +18,7 @@ function Gallery() {
     <section id="gallery" className="cs-reveal" style={{
       padding: 'var(--section-y) 0',
       background: 'linear-gradient(180deg, var(--cream), var(--pink-50))',
-      scrollMarginTop: '84px',
+      scrollMarginTop: '92px',
     }}>
       <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)' }}>
         <SectionHeading eyebrow="Галерея" title="Моменты из жизни садика" gradient>

@@ -24,14 +24,14 @@ function Header() {
     }}>
       <div className="cs-header-inner" style={{
         maxWidth: 'var(--container-max)', margin: '0 auto',
-        padding: '12px clamp(20px,5vw,48px)',
-        display: 'flex', alignItems: 'center', gap: '24px',
+        padding: '16px clamp(20px,5vw,48px)',
+        display: 'flex', alignItems: 'center', gap: '28px',
       }}>
         {/* Brand */}
-        <a href="#" className="cs-brand" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <SunMark size={42} className="cs-sun-spin" />
+        <a href="#" className="cs-brand" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+          <SunMark size={54} className="cs-sun-spin" />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '22px', color: 'var(--ink-900)' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '27px', color: 'var(--ink-900)' }}>
               Чудо <span className="cs-gradient-text">Садик</span>
             </span>
           </span>
@@ -43,8 +43,8 @@ function Header() {
             <a key={n.id} href={`#${n.id}`}
               onClick={(e) => { e.preventDefault(); go(n.id); }}
               style={{
-                padding: '11px 18px', borderRadius: 'var(--radius-pill)',
-                fontWeight: 700, fontSize: '16px', color: 'var(--ink-700)', textDecoration: 'none',
+                padding: '13px 20px', borderRadius: 'var(--radius-pill)',
+                fontWeight: 700, fontSize: '17px', color: 'var(--ink-700)', textDecoration: 'none',
                 transition: 'all var(--dur-base) var(--ease-out)',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-primary-soft)'; e.currentTarget.style.color = 'var(--color-primary-press)'; }}
@@ -54,13 +54,12 @@ function Header() {
         </nav>
 
         {/* Actions (десктоп) */}
-        {/* Действия: размер md — раньше CTA (sm, 38px) была ниже соседней
-            иконки (44px) и терялась. Магнит тянет её за курсором. */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="cs-nav cs-cta">
-          <IconButton icon={<Ic n="send" size={22} />} variant="soft" size="md" label="Telegram" onClick={() => scrollToId('contacts')} />
-          <span data-cs-magnet>
-            <Button variant="primary" size="md" iconLeft={<Ic n="phone" size={18} />} onClick={() => scrollToId('enroll')}>Записаться</Button>
-          </span>
+        {/* Магнита здесь нет намеренно: в шапке кнопка стоит вплотную к иконке
+            Telegram и, притягиваясь к курсору, наезжала на неё. В Hero места
+            достаточно — там магнит остался. */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }} className="cs-nav cs-cta">
+          <IconButton icon={<Ic n="send" size={24} />} variant="soft" size="lg" label="Telegram" onClick={() => scrollToId('contacts')} />
+          <Button variant="primary" size="lg" iconLeft={<Ic n="phone" size={20} />} onClick={() => scrollToId('enroll')}>Записаться</Button>
         </div>
 
         {/* Бургер (мобильный) */}
@@ -70,7 +69,7 @@ function Header() {
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((o) => !o)}
           style={{
-            marginLeft: 'auto', width: 46, height: 46, borderRadius: 'var(--radius-pill)',
+            marginLeft: 'auto', width: 54, height: 54, borderRadius: 'var(--radius-pill)',
             border: '1px solid var(--color-border)', background: 'var(--color-surface)',
             color: 'var(--ink-900)', cursor: 'pointer',
             alignItems: 'center', justifyContent: 'center',
