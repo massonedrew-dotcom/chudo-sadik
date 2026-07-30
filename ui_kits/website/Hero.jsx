@@ -55,7 +55,7 @@ function Hero({ direction = 'sunshine' }) {
   /* ---------- A · Sunshine: gradient headline + sun + photo ---------- */
   if (direction === 'sunshine') {
     return (
-      <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--cream)' }}>
+      <section style={{ position: 'relative', overflow: 'hidden' }}>
         <div className="cs-parallax" data-cs-speed="0.12" style={{
           position: 'absolute', inset: 0,
           background: 'radial-gradient(circle at 76% 30%, var(--pink-100) 0%, transparent 42%)',
@@ -166,7 +166,7 @@ function Hero({ direction = 'sunshine' }) {
 
   /* ---------- C · Warm & calm: photo-led, reassuring ---------- */
   return (
-    <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--cream)' }}>
+    <section style={{ position: 'relative', overflow: 'hidden' }}>
       <div style={{
         maxWidth: 'var(--container-max)', margin: '0 auto',
         padding: 'clamp(40px,5vw,72px) clamp(20px,5vw,48px)',

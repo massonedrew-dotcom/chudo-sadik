@@ -21,7 +21,7 @@ function Care() {
   ];
 
   return (
-    <section id="about" style={{ padding: 'var(--section-y) 0', background: 'var(--cream)', scrollMarginTop: '84px' }}>
+    <section id="about" style={{ padding: 'var(--section-y) 0', scrollMarginTop: '84px' }}>
       <div className="cs-care-grid" style={{
         maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)',
         display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '56px', alignItems: 'center',

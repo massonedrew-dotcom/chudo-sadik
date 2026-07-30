@@ -51,7 +51,7 @@ function Programs() {
   const HEADER_H = 190;
 
   return (
-    <section id="programs" className="cs-reveal" style={{ padding: 'var(--section-y) 0', background: 'var(--cream)', scrollMarginTop: '84px' }}>
+    <section id="programs" className="cs-reveal" style={{ padding: 'var(--section-y) 0', scrollMarginTop: '84px' }}>
       <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)' }}>
         <SectionHeading eyebrow="Наши занятия" title="Направления развития" gradient>
           Всё, что нужно малышу, чтобы расти счастливым, здоровым и любознательным.

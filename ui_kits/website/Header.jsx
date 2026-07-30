@@ -43,8 +43,8 @@ function Header() {
             <a key={n.id} href={`#${n.id}`}
               onClick={(e) => { e.preventDefault(); go(n.id); }}
               style={{
-                padding: '8px 14px', borderRadius: 'var(--radius-pill)',
-                fontWeight: 700, fontSize: '15px', color: 'var(--ink-700)', textDecoration: 'none',
+                padding: '11px 18px', borderRadius: 'var(--radius-pill)',
+                fontWeight: 700, fontSize: '16px', color: 'var(--ink-700)', textDecoration: 'none',
                 transition: 'all var(--dur-base) var(--ease-out)',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-primary-soft)'; e.currentTarget.style.color = 'var(--color-primary-press)'; }}
@@ -54,9 +54,13 @@ function Header() {
         </nav>
 
         {/* Actions (десктоп) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="cs-nav cs-cta">
-          <IconButton icon={<Ic n="send" size={20} />} variant="soft" label="Telegram" onClick={() => scrollToId('contacts')} />
-          <Button variant="primary" size="sm" iconLeft={<Ic n="phone" size={17} />} onClick={() => scrollToId('enroll')}>Записаться</Button>
+        {/* Действия: размер md — раньше CTA (sm, 38px) была ниже соседней
+            иконки (44px) и терялась. Магнит тянет её за курсором. */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }} className="cs-nav cs-cta">
+          <IconButton icon={<Ic n="send" size={22} />} variant="soft" size="md" label="Telegram" onClick={() => scrollToId('contacts')} />
+          <span data-cs-magnet>
+            <Button variant="primary" size="md" iconLeft={<Ic n="phone" size={18} />} onClick={() => scrollToId('enroll')}>Записаться</Button>
+          </span>
         </div>
 
         {/* Бургер (мобильный) */}

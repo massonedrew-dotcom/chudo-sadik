@@ -23,7 +23,7 @@ function Contacts() {
   };
 
   return (
-    <section id="contacts" className="cs-reveal" style={{ padding: 'var(--section-y) 0', background: 'var(--cream)', scrollMarginTop: '84px' }}>
+    <section id="contacts" className="cs-reveal" style={{ padding: 'var(--section-y) 0', scrollMarginTop: '84px' }}>
       <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)' }}>
         <SectionHeading eyebrow="Контакты" title="Приходите в гости" gradient>
           Будем рады познакомиться лично — позвоните, напишите в Telegram или просто загляните.
