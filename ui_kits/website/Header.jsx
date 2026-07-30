@@ -17,21 +17,26 @@ function Header() {
   const go = (id) => { setMenuOpen(false); scrollToId(id); };
 
   return (
+    /* Шапка почти белая, а не розовая: на розовом фоне розовые кнопки
+       сливались и «Записаться» терялась. */
     <header className="cs-header" style={{
       position: 'sticky', top: 0, zIndex: 100,
-      background: 'rgba(255, 228, 239, 0.88)', backdropFilter: 'blur(12px)',
-      borderBottom: '1px solid var(--color-border)',
+      background: 'rgba(255, 252, 253, 0.90)', backdropFilter: 'blur(12px)',
+      borderBottom: '1px solid var(--pink-100, var(--color-border))',
     }}>
+      {/* Шире контентного контейнера (1200px): выросшему меню его не хватало —
+          пунктам оставалось 624px при нужных 729, и они ломались на две строки. */}
       <div className="cs-header-inner" style={{
-        maxWidth: 'var(--container-max)', margin: '0 auto',
+        maxWidth: '1400px', margin: '0 auto',
         padding: '16px clamp(20px,5vw,48px)',
         display: 'flex', alignItems: 'center', gap: '28px',
       }}>
         {/* Brand */}
         <a href="#" className="cs-brand" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
           <SunMark size={54} className="cs-sun-spin" />
+          {/* nowrap — иначе на узких экранах «Садик» уезжал на вторую строку */}
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '27px', color: 'var(--ink-900)' }}>
+            <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '27px', color: 'var(--ink-900)', whiteSpace: 'nowrap' }}>
               Чудо <span className="cs-gradient-text">Садик</span>
             </span>
           </span>
@@ -43,8 +48,9 @@ function Header() {
             <a key={n.id} href={`#${n.id}`}
               onClick={(e) => { e.preventDefault(); go(n.id); }}
               style={{
-                padding: '13px 20px', borderRadius: 'var(--radius-pill)',
-                fontWeight: 700, fontSize: '17px', color: 'var(--ink-700)', textDecoration: 'none',
+                padding: '12px 16px', borderRadius: 'var(--radius-pill)',
+                fontWeight: 700, fontSize: '16px', color: 'var(--ink-700)', textDecoration: 'none',
+                whiteSpace: 'nowrap',        /* «О садике» и «Распорядок дня» ломались на две строки */
                 transition: 'all var(--dur-base) var(--ease-out)',
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--color-primary-soft)'; e.currentTarget.style.color = 'var(--color-primary-press)'; }}
@@ -53,13 +59,25 @@ function Header() {
           ))}
         </nav>
 
-        {/* Actions (десктоп) */}
-        {/* Магнита здесь нет намеренно: в шапке кнопка стоит вплотную к иконке
-            Telegram и, притягиваясь к курсору, наезжала на неё. В Hero места
-            достаточно — там магнит остался. */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }} className="cs-nav cs-cta">
-          <IconButton icon={<Ic n="send" size={24} />} variant="soft" size="lg" label="Telegram" onClick={() => scrollToId('contacts')} />
-          <Button variant="primary" size="lg" iconLeft={<Ic n="phone" size={20} />} onClick={() => scrollToId('enroll')}>Записаться</Button>
+        {/* Actions (десктоп)
+            Класса cs-cta здесь нет намеренно: он поднимал кнопку на 3px при
+            наведении и пускал по ней блик — рядом с иконкой Telegram это
+            читалось как «кнопка магнитится». В шапке кнопка стоит неподвижно,
+            подсветка — только тенью (.cs-header-cta в motion.css).
+            Telegram сделан белым с розовой обводкой, чтобы две кнопки
+            отличались друг от друга, а не выглядели одинаковыми. */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }} className="cs-nav">
+          <IconButton
+            icon={<Ic n="send" size={24} />}
+            variant="soft"
+            size="lg"
+            label="Telegram"
+            onClick={() => scrollToId('contacts')}
+            style={{ background: '#fff', border: '2px solid var(--pink-200, #FFC2DA)', color: 'var(--pink-500, #FF4D97)' }}
+          />
+          <span className="cs-header-cta">
+            <Button variant="primary" size="lg" iconLeft={<Ic n="phone" size={20} />} onClick={() => scrollToId('enroll')}>Записаться</Button>
+          </span>
         </div>
 
         {/* Бургер (мобильный) */}

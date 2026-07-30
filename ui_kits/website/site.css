@@ -21,6 +21,17 @@ body { background: var(--cream); }
 .cs-burger { display: none; }              /* по умолчанию (десктоп) скрыт */
 .cs-mobile-nav { display: none; }
 
+/* ---------- Шапка: бургер (<= 1340px) ----------
+   Точка перехода вычислена по факту: горизонтальному меню нужно 1305px
+   вместе с логотипом и кнопками. Ниже этого оно не помещается, поэтому
+   меню прячется и появляется бургер — раньше это происходило только на
+   900px, и в промежутке пункты налезали друг на друга. */
+@media (max-width: 1340px) {
+  .cs-nav { display: none !important; }
+  .cs-burger { display: inline-flex !important; }
+  .cs-mobile-nav.cs-mobile-nav-open { display: flex !important; }
+}
+
 /* ---------- Планшеты и телефоны (<= 900px) ---------- */
 @media (max-width: 900px) {
   .cs-hero-grid,
@@ -36,11 +47,6 @@ body { background: var(--cream); }
     grid-template-columns: 1fr !important;
   }
   .cs-programs-grid { grid-template-columns: repeat(2, 1fr) !important; }
-
-  /* Шапка: прячем горизонтальное меню и действия, показываем бургер */
-  .cs-nav { display: none !important; }
-  .cs-burger { display: inline-flex !important; }
-  .cs-mobile-nav.cs-mobile-nav-open { display: flex !important; }
 
   /* Подвал в 2 колонки, бренд-блок на всю ширину */
   .cs-footer-grid { grid-template-columns: 1fr 1fr !important; }

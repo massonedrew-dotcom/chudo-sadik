@@ -269,6 +269,17 @@
 .cs-nav a:hover::after,
 .cs-nav a:focus-visible::after { transform: scaleX(1); }
 
+/* Кнопки в шапке стоят неподвижно.
+   Подъём при наведении зашит в сам компонент Button дизайн-системы: он
+   на onMouseEnter пишет инлайном transform: translateY(-2px). Инлайн-стиль
+   бьёт любое обычное правило, поэтому здесь нужен !important. Рядом с
+   иконкой Telegram этот сдвиг читался как «кнопка магнитится».
+   Отклик оставляем тенью — её дизайн-система тоже ставит инлайном. */
+.cs-header button { transform: none !important; }
+.cs-header .cs-header-cta button:hover {
+  box-shadow: 0 8px 22px rgba(255, 77, 151, 0.42) !important;
+}
+
 /* Индикатор прочитанного — тонкая полоска поверх страницы */
 .cs-progress {
   position: fixed;
