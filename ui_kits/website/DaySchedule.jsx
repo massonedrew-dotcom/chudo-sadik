@@ -40,16 +40,16 @@ function DaySchedule() {
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px 28px',
           margin: '40px auto 0', maxWidth: '880px',
-        }} className="cs-schedule-grid">
+        }} className="cs-schedule-grid cs-stagger">
           {items.map((x) => {
             const c = chip[x.c] || chip.pink;
             return (
-              <div key={x.time + x.t} style={{
+              <div key={x.time + x.t} className="cs-row" style={{
                 display: 'flex', alignItems: 'flex-start', gap: '14px',
                 background: 'var(--cream)', border: '1px solid var(--color-border)',
                 borderRadius: 'var(--radius-lg)', padding: '14px 16px',
               }}>
-                <span style={{
+                <span className="cs-row-icon" style={{
                   width: 46, height: 46, flex: 'none', borderRadius: '50%',
                   background: c.bg, color: c.fg,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',

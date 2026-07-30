@@ -1,4 +1,4 @@
-/* Чудо Садик — адаптив, анимации появления и мелкая полировка. */
+/* Чудо Садик — адаптив и мелкая полировка. Анимации — в motion.css. */
 
 /* Страховка от горизонтального скролла из-за декоративных карточек со смещением */
 html, body { overflow-x: hidden; }
@@ -15,20 +15,7 @@ html, body { overflow-x: hidden; }
 }
 body { background: var(--cream); }
 
-/* ---------- Анимации появления при скролле ---------- */
-.cs-reveal {
-  opacity: 0;
-  transform: translateY(18px);
-  transition: opacity 0.6s var(--ease-out, ease), transform 0.6s var(--ease-out, ease);
-  will-change: opacity, transform;
-}
-.cs-reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  .cs-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-}
+/* Анимации появления, микроанимации и весь остальной motion — в motion.css */
 
 /* ---------- Мобильное меню ---------- */
 .cs-burger { display: none; }              /* по умолчанию (десктоп) скрыт */

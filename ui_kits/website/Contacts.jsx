@@ -34,7 +34,7 @@ function Contacts() {
           margin: '44px 0 0', alignItems: 'stretch',
         }} className="cs-contacts-grid">
           {/* Info column */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <div className="cs-stagger cs-cta" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {info.map((x) => {
               const c = chip[x.c] || chip.pink;
               const Wrap = x.href ? 'a' : 'div';
@@ -74,7 +74,7 @@ function Contacts() {
           </div>
 
           {/* Схема проезда — кликабельна, открывает Яндекс.Карты */}
-          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" style={{
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer" className="cs-card" style={{
             position: 'relative', display: 'block', minHeight: '380px',
             borderRadius: 'var(--radius-2xl)', overflow: 'hidden',
             border: '6px solid #fff', boxShadow: 'var(--shadow-lg)',

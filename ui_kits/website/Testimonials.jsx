@@ -47,7 +47,7 @@ function Testimonials() {
           Нам доверяют самое дорогое — и это лучшая награда. Вот несколько тёплых слов от наших семей.
         </SectionHeading>
 
-        <div className="cs-reviews-grid" style={{
+        <div className="cs-reviews-grid cs-stagger cs-cards" style={{
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px',
           margin: '40px 0 0',
         }}>

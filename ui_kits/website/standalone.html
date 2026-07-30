@@ -70,12 +70,16 @@
 
 <link rel="stylesheet" href="../../styles.css">
 <link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="motion.css">
 <meta name="ext-resource-dependency" content="../../assets/logo-sun.png" data-resource-id="sun" />
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="../../_ds_bundle.js"></script>
+<!-- Интерактивный motion (наклон карточек, магнитные кнопки, конфетти).
+     Обычный скрипт, не Babel: слушатели навешены делегированием и не зависят от React. -->
+<script src="motion.js"></script>
 <style>
   html, body { margin: 0; background: var(--cream); }
   body { font-family: var(--font-body); color: var(--color-text); }
@@ -102,6 +106,7 @@
 <script type="text/babel" src="Common.jsx" data-presets="react"></script>
 <script type="text/babel" src="Header.jsx" data-presets="react"></script>
 <script type="text/babel" src="Hero.jsx" data-presets="react"></script>
+<script type="text/babel" src="Marquee.jsx" data-presets="react"></script>
 <script type="text/babel" src="Programs.jsx" data-presets="react"></script>
 <script type="text/babel" src="Banner.jsx" data-presets="react"></script>
 <script type="text/babel" src="Care.jsx" data-presets="react"></script>
@@ -122,11 +127,17 @@
       im.src = window.__resources.sun;
     });
   }
+  // ===== Motion: появление при скролле, параллакс, прогресс, счётчики =====
+  // Стили всех эффектов — в motion.css. Здесь только «когда включить».
+  const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const REVEAL_SEL = '.cs-reveal, .cs-reveal-left, .cs-reveal-right, .cs-reveal-zoom, .cs-stagger';
+
   // Плавное появление секций при прокрутке (с fallback'ом, если что-то не сработает)
   let revealObserver = null;
   function setupReveal() {
-    const els = document.querySelectorAll('.cs-reveal:not(.is-visible)');
-    if (!('IntersectionObserver' in window)) {
+    const els = document.querySelectorAll(REVEAL_SEL.split(', ').map(function (s) { return s + ':not(.is-visible)'; }).join(', '));
+    if (REDUCED || !('IntersectionObserver' in window)) {
       els.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
@@ -135,9 +146,87 @@
         entries.forEach(function (e) {
           if (e.isIntersecting) { e.target.classList.add('is-visible'); revealObserver.unobserve(e.target); }
         });
-      }, { threshold: 0.12 });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     }
     els.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  // Страховка: контент до появления скрыт (opacity: 0), поэтому если наблюдатель
+  // почему-то не отработал, через 2.5 с показываем всё, что сейчас в кадре.
+  // Секции ниже сгиба при этом сохраняют анимацию появления.
+  function revealFallback() {
+    document.querySelectorAll(REVEAL_SEL.split(', ').map(function (s) { return s + ':not(.is-visible)'; }).join(', '))
+      .forEach(function (el) {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-visible');
+      });
+  }
+
+  // Счётчики цифр («20 лет», «200+») — считают вверх, когда секция появилась.
+  // Разметка: <b data-cs-count="200" data-cs-suffix="+">200+</b>
+  let countObserver = null;
+  function setupCounters() {
+    const els = document.querySelectorAll('[data-cs-count]:not([data-cs-counted])');
+    const run = function (el) {
+      el.setAttribute('data-cs-counted', '1');
+      const to = parseFloat(el.getAttribute('data-cs-count')) || 0;
+      const prefix = el.getAttribute('data-cs-prefix') || '';
+      const suffix = el.getAttribute('data-cs-suffix') || '';
+      if (REDUCED) { el.textContent = prefix + to + suffix; return; }
+      const dur = 1200;
+      const t0 = performance.now();
+      const step = function (now) {
+        const p = Math.min(1, (now - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);           // ease-out-cubic
+        el.textContent = prefix + Math.round(to * eased) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      el.textContent = prefix + '0' + suffix;
+      requestAnimationFrame(step);
+    };
+    if (!('IntersectionObserver' in window)) { els.forEach(run); return; }
+    if (!countObserver) {
+      countObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { countObserver.unobserve(e.target); run(e.target); }
+        });
+      }, { threshold: 0.6 });
+    }
+    els.forEach(function (el) { countObserver.observe(el); });
+  }
+
+  // Прокрутка: индикатор прочитанного, «прилипшая» шапка и лёгкий параллакс.
+  // Всё считается в одном rAF-кадре, чтобы не дёргать layout на каждый скролл.
+  function setupScrollFx() {
+    const bar = document.createElement('div');
+    bar.className = 'cs-progress';
+    document.body.appendChild(bar);
+
+    let ticking = false;
+    const apply = function () {
+      ticking = false;
+      const y = window.scrollY || document.documentElement.scrollTop;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.setProperty('--cs-progress', max > 0 ? Math.min(1, y / max) : 0);
+
+      const header = document.querySelector('.cs-header');
+      if (header) header.classList.toggle('is-stuck', y > 12);
+
+      if (!REDUCED) {
+        document.querySelectorAll('.cs-parallax').forEach(function (el) {
+          const speed = parseFloat(el.getAttribute('data-cs-speed')) || 0.08;
+          el.style.setProperty('--cs-py', (-y * speed).toFixed(1) + 'px');
+        });
+      }
+    };
+    const onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(apply);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    apply();
   }
 
   function mount() {
@@ -147,8 +236,11 @@
     ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 
     // Keep Lucide icons rendered + inlined logo wired across React re-renders
-    const refresh = () => { window.lucide && window.lucide.createIcons(); fixImgs(); setupReveal(); };
+    const refresh = () => { window.lucide && window.lucide.createIcons(); fixImgs(); setupReveal(); setupCounters(); };
     refresh();
+    setupScrollFx();
+    setTimeout(revealFallback, 2500);
+    window.addEventListener('scroll', revealFallback, { passive: true, once: true });
     let t;
     const obs = new MutationObserver(() => { clearTimeout(t); t = setTimeout(refresh, 30); });
     obs.observe(document.getElementById('root'), { childList: true, subtree: true });

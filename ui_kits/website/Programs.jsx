@@ -3,7 +3,6 @@ function Programs() {
   const { SectionHeading, Tag, Badge } = window.DesignSystem_52b7c1;
   const { Ic } = window;
   const [filter, setFilter] = React.useState('Все');
-  const [lifted, setLifted] = React.useState('');
 
   const cats = [
     { name: 'Все', dot: 'var(--ink-700)' },
@@ -64,22 +63,22 @@ function Programs() {
           ))}
         </div>
 
-        <div className="cs-programs-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
+        {/* Подъём карточки и зум фото — на CSS (.cs-card в motion.css):
+            hover через состояние React перерисовывал бы всю сетку. */}
+        <div className="cs-programs-grid cs-stagger" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '20px' }}>
           {shown.map((p) => {
             const t = tile[p.c] || tile.pink;
-            const up = lifted === p.t;
             return (
-              <div key={p.t}
-                onMouseEnter={() => setLifted(p.t)}
-                onMouseLeave={() => setLifted('')}
+              /* data-cs-tilt — 3D-наклон за курсором (motion.js пишет углы в CSS-переменные) */
+              <div key={p.t} className="cs-card" data-cs-tilt
                 style={{
+                  position: 'relative',
                   background: 'var(--color-surface)', borderRadius: 'var(--radius-lg)',
                   border: '1px solid var(--color-border)', overflow: 'hidden',
-                  boxShadow: up ? 'var(--shadow-lg)' : 'var(--shadow-md)',
-                  transform: up ? 'translateY(-6px)' : 'none',
-                  transition: 'transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out)',
+                  boxShadow: 'var(--shadow-md)',
                   display: 'flex', flexDirection: 'column',
                 }}>
+                <span className="cs-glare" />
                 {/* Шапка карточки: фото или красивая плитка с иконкой-стикером */}
                 {p.img ? (
                   <img src={p.img} alt={p.t} loading="lazy"
@@ -94,7 +93,7 @@ function Programs() {
                     <span style={{ position: 'absolute', width: 90, height: 90, borderRadius: '50%', background: 'rgba(255,255,255,0.35)', top: -24, right: -20 }} />
                     <span style={{ position: 'absolute', width: 60, height: 60, borderRadius: '50%', background: 'rgba(255,255,255,0.25)', bottom: -16, left: -10 }} />
                     {/* иконка-стикер */}
-                    <span style={{
+                    <span className="cs-card-icon" style={{
                       width: 78, height: 78, borderRadius: '50%', background: '#fff', color: t.fg,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       boxShadow: 'var(--shadow-md)', position: 'relative',

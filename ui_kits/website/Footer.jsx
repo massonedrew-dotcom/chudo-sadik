@@ -18,13 +18,13 @@ function Footer() {
 
   return (
     <footer style={{ background: 'var(--ink-900)', color: '#fff', paddingTop: 'clamp(48px,6vw,72px)' }}>
-      <div className="cs-footer-grid" style={{
+      <div className="cs-footer-grid cs-stagger" style={{
         maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)',
         display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: '40px',
       }}>
         <div className="cs-footer-brand" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <img src="../../assets/logo-sun.png" alt="Логотип Чудо Садик" style={{ width: 44, height: 44 }} />
+            <img src="../../assets/logo-sun.png" alt="Логотип Чудо Садик" className="cs-sun-spin" style={{ width: 44, height: 44 }} />
             <span style={{ lineHeight: 1 }}>
               <b style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '22px', color: '#fff', display: 'block' }}>Чудо Садик</b>
             </span>

@@ -7,7 +7,7 @@ function Enroll() {
   const [phone, setPhone] = React.useState('');
 
   return (
-    <section id="enroll" className="cs-reveal" style={{ padding: 'var(--section-y) 0', background: 'var(--cream)', scrollMarginTop: '84px' }}>
+    <section id="enroll" style={{ padding: 'var(--section-y) 0', background: 'var(--cream)', scrollMarginTop: '84px' }}>
       <div style={{ maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)' }}>
         <div style={{
           position: 'relative', overflow: 'hidden',
@@ -16,8 +16,8 @@ function Enroll() {
           display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center',
           boxShadow: 'var(--shadow-md)',
         }} className="cs-enroll-grid">
-          <Blob color="var(--pink-200)" size={260} style={{ right: '-60px', top: '-60px' }} />
-          <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          <Blob color="var(--pink-200)" size={260} className="cs-float-slow" style={{ right: '-60px', top: '-60px' }} />
+          <div className="cs-reveal-left" style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <Badge color="primary" variant="solid" size="lg" style={{ alignSelf: 'flex-start' }} iconLeft={<Ic n="sparkles" size={16} />}>
               Идёт запись · есть места
             </Badge>
@@ -37,7 +37,7 @@ function Enroll() {
             </div>
           </div>
 
-          <div style={{
+          <div className="cs-reveal-right cs-cta" style={{
             position: 'relative', background: '#fff', borderRadius: 'var(--radius-xl)',
             padding: 'clamp(24px,3vw,36px)', boxShadow: 'var(--shadow-lg)',
           }}>
@@ -51,7 +51,12 @@ function Enroll() {
                 <Button variant="soft" onClick={() => setSent(false)}>Отправить ещё одну</Button>
               </div>
             ) : (
-              <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                // Конфетти — до setSent: форма сейчас размонтируется, а размеры нужны сейчас.
+                if (window.CSMotion) window.CSMotion.confetti(e.currentTarget);
+                setSent(true);
+              }} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <h3 style={{ font: 'var(--font-h4)', fontSize: '22px', margin: '0 0 4px' }}>Записаться на экскурсию</h3>
                 <Input label="Ваше имя" placeholder="Как вас зовут?" required iconLeft={<Ic n="user" size={18} />} value={name} onChange={(e) => setName(sanitize(e.target.value, 60))} />
                 <Input label="Телефон" type="tel" placeholder="+998 90 123 45 67" required iconLeft={<Ic n="phone" size={18} />} value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} />

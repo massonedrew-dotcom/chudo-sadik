@@ -17,19 +17,19 @@ function Header() {
   const go = (id) => { setMenuOpen(false); scrollToId(id); };
 
   return (
-    <header style={{
+    <header className="cs-header" style={{
       position: 'sticky', top: 0, zIndex: 100,
       background: 'rgba(255, 228, 239, 0.88)', backdropFilter: 'blur(12px)',
       borderBottom: '1px solid var(--color-border)',
     }}>
-      <div style={{
+      <div className="cs-header-inner" style={{
         maxWidth: 'var(--container-max)', margin: '0 auto',
         padding: '12px clamp(20px,5vw,48px)',
         display: 'flex', alignItems: 'center', gap: '24px',
       }}>
         {/* Brand */}
-        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <SunMark size={42} />
+        <a href="#" className="cs-brand" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+          <SunMark size={42} className="cs-sun-spin" />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
             <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '22px', color: 'var(--ink-900)' }}>
               Чудо <span className="cs-gradient-text">Садик</span>
@@ -54,7 +54,7 @@ function Header() {
         </nav>
 
         {/* Actions (десктоп) */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="cs-nav">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }} className="cs-nav cs-cta">
           <IconButton icon={<Ic n="send" size={20} />} variant="soft" label="Telegram" onClick={() => scrollToId('contacts')} />
           <Button variant="primary" size="sm" iconLeft={<Ic n="phone" size={17} />} onClick={() => scrollToId('enroll')}>Записаться</Button>
         </div>

@@ -11,7 +11,7 @@ function Summer() {
   ];
 
   return (
-    <section id="summer" className="cs-reveal" style={{
+    <section id="summer" style={{
       padding: 'var(--section-y) 0',
       background: 'linear-gradient(180deg, var(--pink-50), var(--pink-100))',
       scrollMarginTop: '84px',
@@ -21,7 +21,7 @@ function Summer() {
         display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '48px', alignItems: 'center',
       }}>
         {/* Фото бассейна */}
-        <div style={{ position: 'relative' }}>
+        <div className="cs-reveal-left" style={{ position: 'relative' }}>
           <Photo src="../../assets/photos/summer-pool.jpg" alt="Летний сезон с бассейном в садике Чудо"
             objectPosition="center 30%"
             style={{ height: '420px', borderRadius: 'var(--radius-2xl)', boxShadow: 'var(--shadow-lg)', border: '6px solid #fff' }} />
@@ -32,13 +32,13 @@ function Summer() {
         </div>
 
         {/* Текст */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+        <div className="cs-reveal-right" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           <SectionHeading align="left" eyebrow="Лето в Чудо" title="Летний лагерь с бассейном">
             Летом малышей ждёт особый сезон: купание в бассейне, игры на свежем воздухе,
             творчество и приключения каждый день. Присоединяйтесь! ☀️
           </SectionHeading>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div className="cs-stagger" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
             {points.map((p) => (
               <div key={p.t} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <span style={{ width: 44, height: 44, flex: 'none', borderRadius: '50%', background: 'var(--sky-100)', color: 'var(--sky-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -49,7 +49,7 @@ function Summer() {
             ))}
           </div>
 
-          <div>
+          <div className="cs-cta">
             <Button variant="primary" size="lg" iconLeft={<Ic n="calendar-heart" size={20} />}
               onClick={() => scrollToId && scrollToId('enroll')}>
               Записаться в лагерь

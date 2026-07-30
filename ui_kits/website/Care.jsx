@@ -12,19 +12,21 @@ function Care() {
     { i: 'clock', t: 'Чёткий режим дня', d: 'Занятия, прогулки, сон и отдых — всё вовремя.' },
   ];
 
+  // count/suffix — для анимации «цифры считают вверх» (см. setupCounters в standalone.html).
+  // Где count не задан, число просто выводится как есть.
   const stats = [
-    { n: '20 лет', t: 'опыта работы' },
-    { n: '10', t: 'педагогов и специалистов' },
+    { n: '20 лет', t: 'опыта работы', count: 20, suffix: ' лет' },
+    { n: '10', t: 'педагогов и специалистов', count: 10 },
     { n: '1–7 лет', t: 'принимаем малышей' },
   ];
 
   return (
-    <section id="about" className="cs-reveal" style={{ padding: 'var(--section-y) 0', background: 'var(--cream)', scrollMarginTop: '84px' }}>
+    <section id="about" style={{ padding: 'var(--section-y) 0', background: 'var(--cream)', scrollMarginTop: '84px' }}>
       <div className="cs-care-grid" style={{
         maxWidth: 'var(--container-max)', margin: '0 auto', padding: '0 clamp(20px,5vw,48px)',
         display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '56px', alignItems: 'center',
       }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+        <div className="cs-reveal-left" style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
           <SectionHeading align="left" eyebrow="О садике" title="Почему выбирают Чудо">
             Частный развивающий садик в Ташкенте для детей от 1 до 7 лет — от раннего возраста
             до подготовки к школе. Помогаем раскрыть способности, развить самостоятельность,
@@ -32,19 +34,23 @@ function Care() {
           </SectionHeading>
 
           {/* Ключевые цифры о садике */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+          <div className="cs-cards" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
             {stats.map((s) => (
               <div key={s.n} style={{
                 flex: '1 1 120px', background: 'var(--color-surface)', border: '1px solid var(--color-border)',
                 borderRadius: 'var(--radius-lg)', padding: '14px 16px', boxShadow: 'var(--shadow-sm)',
               }}>
-                <b style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '26px', color: 'var(--color-primary)', display: 'block', lineHeight: 1.1 }}>{s.n}</b>
+                <b
+                  data-cs-count={s.count}
+                  data-cs-suffix={s.suffix}
+                  style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '26px', color: 'var(--color-primary)', display: 'block', lineHeight: 1.1 }}
+                >{s.n}</b>
                 <span style={{ fontSize: '13px', color: 'var(--color-text-muted)', fontWeight: 600 }}>{s.t}</span>
               </div>
             ))}
           </div>
 
-          <div className="cs-care-points" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+          <div className="cs-care-points cs-stagger" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
             {points.map((p) => (
               <div key={p.t} style={{ display: 'flex', gap: '14px' }}>
                 <span style={{ width: 46, height: 46, flex: 'none', borderRadius: '50%', background: 'var(--pink-100)', color: 'var(--pink-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -61,6 +67,7 @@ function Care() {
 
         {/* Фото «Почему выбирают именно нас» */}
         <Photo src="../../assets/photos/kids-reading.jpg" alt="Дети в садике Чудо — почему выбирают именно нас"
+          className="cs-reveal-right"
           style={{
             height: '560px', objectFit: 'contain',
             background: 'linear-gradient(180deg, #FFF1F6 0%, #FFE4EE 100%)',

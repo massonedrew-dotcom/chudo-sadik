@@ -45,11 +45,13 @@ function Pricing() {
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px',
           margin: '44px auto 0', maxWidth: '980px', alignItems: 'stretch',
-        }} className="cs-pricing-grid">
+        }} className="cs-pricing-grid cs-stagger">
           {plans.map((p) => {
             const a = accent[p.color] || accent.pink;
             return (
-              <div key={p.name} style={{
+              /* Приподнятость «популярного» тарифа — классом, а не inline-стилем:
+                 inline перебил бы hover-подъём из motion.css. */
+              <div key={p.name} className={`cs-card${p.featured ? ' cs-card-featured' : ''}`} style={{
                 position: 'relative',
                 background: 'var(--color-surface)',
                 border: p.featured ? '2px solid var(--color-primary)' : '1px solid var(--color-border)',
@@ -57,7 +59,6 @@ function Pricing() {
                 padding: '28px 26px',
                 boxShadow: p.featured ? 'var(--shadow-pink)' : 'var(--shadow-md)',
                 display: 'flex', flexDirection: 'column', gap: '18px',
-                transform: p.featured ? 'translateY(-6px)' : 'none',
               }}>
                 {p.featured && (
                   <Badge color="primary" variant="solid" size="sm" iconLeft={<Ic n="sparkles" size={13} />}
@@ -87,7 +88,7 @@ function Pricing() {
                   ))}
                 </div>
 
-                <div style={{ marginTop: 'auto' }}>
+                <div className="cs-cta" style={{ marginTop: 'auto' }}>
                   <Button
                     variant={p.featured ? 'primary' : 'outline'}
                     size="md" block

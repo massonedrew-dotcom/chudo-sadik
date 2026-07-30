@@ -10,9 +10,45 @@ function Hero({ direction = 'sunshine' }) {
   ];
 
   const ctas = (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
-      <Button variant="sun" size="lg" iconRight={<Ic n="arrow-right" size={20} />} onClick={() => scrollToId('enroll')}>Записаться на экскурсию</Button>
-      <Button variant="soft" size="lg" iconLeft={<Ic n="sparkles" size={18} />} onClick={() => scrollToId('programs')}>Наши занятия</Button>
+    <div className="cs-cta" style={{ display: 'flex', flexWrap: 'wrap', gap: '14px' }}>
+      {/* data-cs-magnet — кнопка тянется за курсором, см. motion.js */}
+      <span data-cs-magnet>
+        <Button variant="sun" size="lg" iconRight={<Ic n="arrow-right" size={20} />} onClick={() => scrollToId('enroll')}>Записаться на экскурсию</Button>
+      </span>
+      <span data-cs-magnet>
+        <Button variant="soft" size="lg" iconLeft={<Ic n="sparkles" size={18} />} onClick={() => scrollToId('programs')}>Наши занятия</Button>
+      </span>
+    </div>
+  );
+
+  /* Декоративная сцена первого экрана: солнце с лучами, летящие шарики, искры.
+     Только оформление — от скринридеров скрыта. Анимации — в motion.css. */
+  const balloons = [
+    { c: '#FF6FA5', left: '6%',  t: '17s', d: '0s',    x: '38px'  },
+    { c: '#7FD1F5', left: '18%', t: '22s', d: '-6s',   x: '-26px' },
+    { c: '#FFD666', left: '31%', t: '19s', d: '-12s',  x: '30px'  },
+    { c: '#B39DFF', left: '62%', t: '24s', d: '-3s',   x: '-34px' },
+    { c: '#7BDCB5', left: '78%', t: '20s', d: '-15s',  x: '24px'  },
+    { c: '#FF8A5B', left: '90%', t: '26s', d: '-9s',   x: '-20px' },
+  ];
+  const sparkles = [
+    { left: '12%', top: '22%', d: '0s'    },
+    { left: '46%', top: '12%', d: '-1.1s' },
+    { left: '69%', top: '70%', d: '-2.2s' },
+    { left: '86%', top: '34%', d: '-0.6s' },
+    { left: '27%', top: '78%', d: '-1.7s' },
+  ];
+  const scene = (
+    <div className="cs-scene" aria-hidden="true">
+      <span className="cs-sun-core" />
+      <span className="cs-sun-rays" />
+      {balloons.map((b, i) => (
+        <span key={i} className="cs-balloon"
+          style={{ left: b.left, '--c': b.c, '--t': b.t, '--d': b.d, '--x': b.x }} />
+      ))}
+      {sparkles.map((s, i) => (
+        <span key={i} className="cs-sparkle" style={{ left: s.left, top: s.top, '--d': s.d }} />
+      ))}
     </div>
   );
 
@@ -20,22 +56,34 @@ function Hero({ direction = 'sunshine' }) {
   if (direction === 'sunshine') {
     return (
       <section style={{ position: 'relative', overflow: 'hidden', background: 'var(--cream)' }}>
-        <div style={{
+        <div className="cs-parallax" data-cs-speed="0.12" style={{
           position: 'absolute', inset: 0,
           background: 'radial-gradient(circle at 76% 30%, var(--pink-100) 0%, transparent 42%)',
           pointerEvents: 'none',
         }} />
-        <Blob color="var(--pink-200)" size={260} style={{ left: '-60px', bottom: '-40px' }} />
+        {scene}
+        {/* Декоративные пятна: одно парит, другое сдвигается при прокрутке */}
+        <Blob color="var(--pink-200)" size={260} className="cs-float-slow" style={{ left: '-60px', bottom: '-40px' }} />
+        <Blob color="var(--yellow-100)" size={200} className="cs-float cs-float-lag" style={{ right: '-40px', top: '-60px' }} />
         <div className="cs-hero-grid" style={{
           maxWidth: 'var(--container-max)', margin: '0 auto',
           padding: 'clamp(48px,7vw,96px) clamp(20px,5vw,48px)',
           display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: '48px', alignItems: 'center',
           position: 'relative',
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div className="cs-enter" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             <span className="cs-overline">Развивающий садик · 1–7 лет</span>
-            <h1 style={{ font: 'var(--font-h1)', fontSize: 'clamp(40px,5.4vw,72px)', margin: 0 }}>
-              Место, где детям<br /><span className="cs-gradient-text">хочется остаться</span>
+            {/* Каждое слово взлетает по очереди (--i задаёт очередь). Градиентная
+                строка обёрнута в отдельный span: на .cs-gradient-text уже висит
+                своя анимация переливания, две на одном элементе не уживаются. */}
+            <h1 className="cs-headline" style={{ font: 'var(--font-h1)', fontSize: 'clamp(40px,5.4vw,72px)', margin: 0 }}>
+              {['Место,', 'где', 'детям'].map((w, i) => (
+                <span key={w} className="cs-word" style={{ '--i': i }}>{w}&nbsp;</span>
+              ))}
+              <br />
+              <span className="cs-word" style={{ '--i': 3 }}>
+                <span className="cs-gradient-text">хочется остаться</span>
+              </span>
             </h1>
             <p style={{ font: 'var(--font-lead)', fontSize: '20px', color: 'var(--color-text-muted)', maxWidth: '480px' }}>
               Тёплая домашняя атмосфера, заботливые педагоги и каждый день — что-то новое. Мы рады поприветствовать вас в нашем садике. ✨
@@ -47,19 +95,19 @@ function Hero({ direction = 'sunshine' }) {
               ))}
             </div>
           </div>
-          <div style={{ position: 'relative' }}>
+          <div className="cs-enter-photo" style={{ position: 'relative' }}>
             <Photo src="../../assets/photos/playroom.jpg" alt="Игровая комната садика Чудо"
               style={{ height: '460px', boxShadow: 'var(--shadow-lg)', border: '6px solid #fff' }} />
-            <div style={{
+            <div className="cs-enter-pop" style={{
               position: 'absolute', bottom: '-22px', left: '-22px',
               background: '#fff', borderRadius: 'var(--radius-lg)', padding: '14px 18px',
               boxShadow: 'var(--shadow-lg)', display: 'flex', alignItems: 'center', gap: '12px',
             }}>
-              <span style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span className="cs-heartbeat" style={{ width: 44, height: 44, borderRadius: '50%', background: 'var(--mint-100)', color: 'var(--mint-500)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Ic n="heart" size={22} />
               </span>
               <span style={{ lineHeight: 1.2 }}>
-                <b style={{ fontFamily: 'var(--font-display)', fontSize: '20px' }}>200+</b>
+                <b data-cs-count="200" data-cs-suffix="+" style={{ fontFamily: 'var(--font-display)', fontSize: '20px' }}>200+</b>
                 <span style={{ display: 'block', fontSize: '13px', color: 'var(--color-text-muted)', fontWeight: 600 }}>счастливых малышей</span>
               </span>
             </div>

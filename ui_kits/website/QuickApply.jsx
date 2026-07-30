@@ -30,6 +30,8 @@ function QuickApply() {
   const submit = (e) => {
     e.preventDefault();
     if (!validate()) return;
+    // Конфетти — до setSent: форма сейчас размонтируется, а размеры нужны сейчас.
+    if (window.CSMotion) window.CSMotion.confetti(e.currentTarget);
     setSent(true);
   };
 
@@ -43,6 +45,7 @@ function QuickApply() {
       {/* Collapsed pill */}
       {!open && (
         <button
+          className="cs-qa-pill"
           onClick={() => setOpen(true)}
           style={{
             display: 'flex', alignItems: 'center', gap: '12px',
@@ -57,7 +60,7 @@ function QuickApply() {
           onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
         >
-          <span style={{
+          <span className="cs-qa-spark" style={{
             width: 38, height: 38, borderRadius: '50%',
             background: 'rgba(255,255,255,0.22)', display: 'flex',
             alignItems: 'center', justifyContent: 'center', flexShrink: 0,

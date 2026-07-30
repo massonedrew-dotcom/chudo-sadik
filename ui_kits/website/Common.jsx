@@ -6,12 +6,13 @@ const Ic = ({ n, size = 24, color, style = {} }) => (
 
 /* Photo — реальное фото (если задан src) или плейсхолдер-заглушка.
    src — путь к картинке, objectPosition — какую часть кадра показывать при обрезке. */
-function Photo({ caption = 'Фото', icon = 'image', tint = 'pink', radius = 'var(--radius-lg)', src = null, alt = '', objectPosition = 'center', style = {} }) {
+function Photo({ caption = 'Фото', icon = 'image', tint = 'pink', radius = 'var(--radius-lg)', src = null, alt = '', objectPosition = 'center', className, style = {} }) {
   if (src) {
     return (
       <img
         src={src}
         alt={alt || caption}
+        className={className}
         loading="lazy"
         style={{
           display: 'block', width: '100%', height: '100%',
@@ -29,7 +30,7 @@ function Photo({ caption = 'Фото', icon = 'image', tint = 'pink', radius = '
     purple: 'linear-gradient(135deg, var(--purple-100), var(--pink-100))',
   };
   return (
-    <div style={{
+    <div className={className} style={{
       background: grad[tint] || grad.pink,
       borderRadius: radius,
       display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
@@ -43,16 +44,16 @@ function Photo({ caption = 'Фото', icon = 'image', tint = 'pink', radius = '
 }
 
 /* Decorative blurred blob */
-function Blob({ color = 'var(--pink-200)', size = 220, style = {} }) {
-  return <div style={{
+function Blob({ color = 'var(--pink-200)', size = 220, className, style = {} }) {
+  return <div className={className} style={{
     position: 'absolute', width: size, height: size, borderRadius: '50%',
     background: color, filter: 'blur(40px)', opacity: 0.55, pointerEvents: 'none', ...style,
   }} />;
 }
 
 /* Sun mark image */
-function SunMark({ size = 40, alt = 'Логотип Чудо Садик', style = {} }) {
-  return <img src="../../assets/logo-sun.png" alt={alt} style={{ width: size, height: size, ...style }} />;
+function SunMark({ size = 40, alt = 'Логотип Чудо Садик', className, style = {} }) {
+  return <img src="../../assets/logo-sun.png" alt={alt} className={className} style={{ width: size, height: size, ...style }} />;
 }
 
 /* Smooth-scroll to a section by id (accounts for sticky header via scrollMarginTop) */
