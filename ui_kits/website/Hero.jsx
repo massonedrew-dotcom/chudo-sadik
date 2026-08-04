@@ -67,7 +67,7 @@ function Hero({ direction = 'sunshine' }) {
             </div>
           </div>
           <div className="cs-enter-photo" style={{ position: 'relative' }}>
-            <Photo src="../../assets/photos/playroom.jpg" alt="Игровая комната садика Чудо"
+            <Photo src="assets/photos/playroom.jpg" alt="Игровая комната садика Чудо"
               style={{ height: '460px', boxShadow: 'var(--shadow-lg)', border: '6px solid #fff' }} />
             <div className="cs-enter-pop" style={{
               position: 'absolute', bottom: '-22px', left: '-22px',

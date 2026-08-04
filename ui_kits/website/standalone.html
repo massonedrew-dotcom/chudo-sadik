@@ -1,142 +1,80 @@
 <!DOCTYPE html>
-<html lang="ru">
+<!-- ============================================================================
+     Легаси-адрес главной страницы.
+     Раньше сайт открывался именно отсюда, поэтому ссылка могла остаться в
+     закладках, чатах и поисковом индексе. Настоящая главная теперь в корне —
+     /index.html, а эта страница:
+       • помечена noindex (иначе в поиске были бы два одинаковых сайта);
+       • указывает canonical на корень;
+       • на сервере отдаёт 301 на «/» (см. .htaccess / nginx.conf.example).
+     Оставлена рабочей, чтобы превью дизайн-системы открывалось локально.
+     data-asset-base="../../" — страница лежит на два уровня глубже корня.
+     ============================================================================ -->
+<html lang="ru" data-asset-base="../../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- ===== Безопасность ===== -->
-<!-- Content Security Policy: ограничивает, откуда можно грузить скрипты/стили/картинки.
-     'unsafe-eval'/'unsafe-inline' нужны для Babel-в-браузере и инлайн-стилей дизайн-системы.
-     В продакшен-сборке (Vite) их следует убрать. Полноценные заголовки (HSTS, X-Frame-Options)
-     задаются на сервере — см. файлы _headers / .htaccess и SECURITY.md. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; font-src 'self' data:; connect-src 'self' https://unpkg.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-
-<title>Чудо Садик — частный развивающий садик в Ташкенте для детей 1–7 лет</title>
-
-<!-- ===== SEO (под поиск в Ташкенте) ===== -->
-<meta name="description" content="Чудо Садик — частный развивающий садик в Ташкенте для малышей от 1 до 7 лет. 5-разовое питание, заботливые педагоги, английский, танцы, шахматы, робототехника и ежедневный отчёт в Telegram. Запишитесь на экскурсию!">
-<meta name="keywords" content="частный садик Ташкент, детский сад Ташкент, развивающий садик Ташкент, садик для малышей Ташкент, ясли Ташкент, bolalar bog'chasi Toshkent, дошкольное образование, Чудо Садик">
-<meta name="author" content="Чудо Садик by Color Baby House">
-<meta name="geo.region" content="UZ-TK">
-<meta name="geo.placename" content="Ташкент">
-<meta name="theme-color" content="#FF4D97">
+<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://chudo-sadik.uz/">
-<link rel="icon" type="image/png" href="../../assets/logo-sun.png">
-<link rel="apple-touch-icon" href="../../assets/logo-sun.png">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Чудо Садик — превью главной страницы</title>
 
-<!-- ===== Open Graph (превью при шеринге в Telegram/WhatsApp/соцсетях) ===== -->
-<meta property="og:type" content="website">
-<meta property="og:locale" content="ru_RU">
-<meta property="og:site_name" content="Чудо Садик">
-<meta property="og:title" content="Чудо Садик — частный садик в Ташкенте, где детям хочется остаться">
-<meta property="og:description" content="Развивающий садик в Ташкенте для малышей от 1 до 7 лет. Забота, тёплая атмосфера и ежедневный отчёт в Telegram.">
-<meta property="og:image" content="../../assets/logo-chudo.png">
-<meta property="og:url" content="https://chudo-sadik.uz/">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Чудо Садик — частный садик в Ташкенте">
-<meta name="twitter:description" content="Садик в Ташкенте для детей 1–7 лет: забота, развитие и ежедневный отчёт в Telegram.">
-<meta name="twitter:image" content="../../assets/logo-chudo.png">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
 
-<!-- ===== Микроразметка для поиска и карт (Schema.org) =====
-     ВНИМАНИЕ: адрес, телефон и ссылки — заглушки, замените на реальные. -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ChildCare",
-  "name": "Чудо Садик",
-  "description": "Частный развивающий садик в Ташкенте для малышей от 1 до 7 лет.",
-  "image": "https://chudo-sadik.uz/assets/logo-chudo.png",
-  "url": "https://chudo-sadik.uz/",
-  "telephone": "+998-94-671-26-26",
-  "priceRange": "$$",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "улица Ракатбоши, 42",
-    "addressLocality": "Ташкент",
-    "addressRegion": "Ташкент",
-    "addressCountry": "UZ"
-  },
-  "areaServed": { "@type": "City", "name": "Ташкент" },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "08:00",
-    "closes": "18:00"
-  },
-  "sameAs": ["https://t.me/chudo_sadik"]
-}
-</script>
-
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../../tokens/fonts.css">
+<link rel="stylesheet" href="../../tokens/colors.css">
+<link rel="stylesheet" href="../../tokens/typography.css">
+<link rel="stylesheet" href="../../tokens/spacing.css">
+<link rel="stylesheet" href="../../tokens/base.css">
 <link rel="stylesheet" href="site.css">
 <link rel="stylesheet" href="motion.css">
-<meta name="ext-resource-dependency" content="../../assets/logo-sun.png" data-resource-id="sun" />
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script src="../../_ds_bundle.js"></script>
-<!-- Интерактивный motion (наклон карточек, магнитные кнопки, конфетти).
-     Обычный скрипт, не Babel: слушатели навешены делегированием и не зависят от React. -->
-<script src="motion.js"></script>
+
+<script src="../../site.config.js"></script>
+<script src="analytics.js"></script>
+<script src="faq.data.js"></script>
+
+<script defer src="../../vendor/react.production.min.js"></script>
+<script defer src="../../vendor/react-dom.production.min.js"></script>
+<script defer src="../../vendor/lucide.min.js"></script>
+<script defer src="../../_ds_bundle.js"></script>
+
+<script defer src="dist/Common.js"></script>
+<script defer src="dist/Header.js"></script>
+<script defer src="dist/Hero.js"></script>
+<script defer src="dist/Marquee.js"></script>
+<script defer src="dist/Programs.js"></script>
+<script defer src="dist/Banner.js"></script>
+<script defer src="dist/Care.js"></script>
+<script defer src="dist/Gallery.js"></script>
+<script defer src="dist/DaySchedule.js"></script>
+<script defer src="dist/Pricing.js"></script>
+<script defer src="dist/Summer.js"></script>
+<script defer src="dist/Testimonials.js"></script>
+<script defer src="dist/Enroll.js"></script>
+<script defer src="dist/Faq.js"></script>
+<script defer src="dist/Contacts.js"></script>
+<script defer src="dist/Footer.js"></script>
+<script defer src="dist/QuickApply.js"></script>
+<script defer src="dist/Widgets.js"></script>
+<script defer src="dist/App.js"></script>
+<script defer src="motion.js"></script>
+
 <style>
   html, body { margin: 0; background: var(--cream); }
   body { font-family: var(--font-body); color: var(--color-text); }
 </style>
-<template id="__bundler_thumbnail" data-bg-color="#FFF7E8">
-  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="600" cy="400" r="150" fill="#FDB022"/>
-    <g stroke="#F79009" stroke-width="26" stroke-linecap="round">
-      <line x1="600" y1="170" x2="600" y2="90"/>
-      <line x1="600" y1="630" x2="600" y2="710"/>
-      <line x1="370" y1="400" x2="290" y2="400"/>
-      <line x1="830" y1="400" x2="910" y2="400"/>
-      <line x1="438" y1="238" x2="382" y2="182"/>
-      <line x1="762" y1="238" x2="818" y2="182"/>
-      <line x1="438" y1="562" x2="382" y2="618"/>
-      <line x1="762" y1="562" x2="818" y2="618"/>
-    </g>
-  </svg>
-</template>
 </head>
 <body>
 <div id="root"></div>
 
-<script type="text/babel" src="Common.jsx" data-presets="react"></script>
-<script type="text/babel" src="Header.jsx" data-presets="react"></script>
-<script type="text/babel" src="Hero.jsx" data-presets="react"></script>
-<script type="text/babel" src="Marquee.jsx" data-presets="react"></script>
-<script type="text/babel" src="Programs.jsx" data-presets="react"></script>
-<script type="text/babel" src="Banner.jsx" data-presets="react"></script>
-<script type="text/babel" src="Care.jsx" data-presets="react"></script>
-<script type="text/babel" src="DaySchedule.jsx" data-presets="react"></script>
-<script type="text/babel" src="Pricing.jsx" data-presets="react"></script>
-<script type="text/babel" src="Summer.jsx" data-presets="react"></script>
-<script type="text/babel" src="Testimonials.jsx" data-presets="react"></script>
-<script type="text/babel" src="Enroll.jsx" data-presets="react"></script>
-<script type="text/babel" src="Contacts.jsx" data-presets="react"></script>
-<script type="text/babel" src="Footer.jsx" data-presets="react"></script>
-<script type="text/babel" src="QuickApply.jsx" data-presets="react"></script>
-<script type="text/babel" src="App.jsx" data-presets="react"></script>
+<script>
+  // Те же эффекты прокрутки, что и на главной (index.html).
+  var REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var REVEAL_SEL = '.cs-reveal, .cs-reveal-left, .cs-reveal-right, .cs-reveal-zoom, .cs-stagger';
+  var revealObserver = null;
 
-<script type="text/babel" data-presets="react">
-  function fixImgs() {
-    if (!window.__resources || !window.__resources.sun) return;
-    document.querySelectorAll('img[src$="logo-sun.png"]').forEach(function (im) {
-      im.src = window.__resources.sun;
-    });
-  }
-  // ===== Motion: появление при скролле, параллакс, прогресс, счётчики =====
-  // Стили всех эффектов — в motion.css. Здесь только «когда включить».
-  const REDUCED = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  const REVEAL_SEL = '.cs-reveal, .cs-reveal-left, .cs-reveal-right, .cs-reveal-zoom, .cs-stagger';
-
-  // Плавное появление секций при прокрутке (с fallback'ом, если что-то не сработает)
-  let revealObserver = null;
   function setupReveal() {
-    const els = document.querySelectorAll(REVEAL_SEL.split(', ').map(function (s) { return s + ':not(.is-visible)'; }).join(', '));
+    var els = document.querySelectorAll(REVEAL_SEL.split(', ').map(function (s) { return s + ':not(.is-visible)'; }).join(', '));
     if (REDUCED || !('IntersectionObserver' in window)) {
       els.forEach(function (el) { el.classList.add('is-visible'); });
       return;
@@ -151,33 +89,27 @@
     els.forEach(function (el) { revealObserver.observe(el); });
   }
 
-  // Страховка: контент до появления скрыт (opacity: 0), поэтому если наблюдатель
-  // почему-то не отработал, через 2.5 с показываем всё, что сейчас в кадре.
-  // Секции ниже сгиба при этом сохраняют анимацию появления.
   function revealFallback() {
     document.querySelectorAll(REVEAL_SEL.split(', ').map(function (s) { return s + ':not(.is-visible)'; }).join(', '))
       .forEach(function (el) {
-        const r = el.getBoundingClientRect();
+        var r = el.getBoundingClientRect();
         if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-visible');
       });
   }
 
-  // Счётчики цифр («20 лет», «200+») — считают вверх, когда секция появилась.
-  // Разметка: <b data-cs-count="200" data-cs-suffix="+">200+</b>
-  let countObserver = null;
+  var countObserver = null;
   function setupCounters() {
-    const els = document.querySelectorAll('[data-cs-count]:not([data-cs-counted])');
-    const run = function (el) {
+    var els = document.querySelectorAll('[data-cs-count]:not([data-cs-counted])');
+    var run = function (el) {
       el.setAttribute('data-cs-counted', '1');
-      const to = parseFloat(el.getAttribute('data-cs-count')) || 0;
-      const prefix = el.getAttribute('data-cs-prefix') || '';
-      const suffix = el.getAttribute('data-cs-suffix') || '';
+      var to = parseFloat(el.getAttribute('data-cs-count')) || 0;
+      var prefix = el.getAttribute('data-cs-prefix') || '';
+      var suffix = el.getAttribute('data-cs-suffix') || '';
       if (REDUCED) { el.textContent = prefix + to + suffix; return; }
-      const dur = 1200;
-      const t0 = performance.now();
-      const step = function (now) {
-        const p = Math.min(1, (now - t0) / dur);
-        const eased = 1 - Math.pow(1 - p, 3);           // ease-out-cubic
+      var dur = 1200, t0 = performance.now();
+      var step = function (now) {
+        var p = Math.min(1, (now - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
         el.textContent = prefix + Math.round(to * eased) + suffix;
         if (p < 1) requestAnimationFrame(step);
       };
@@ -195,54 +127,42 @@
     els.forEach(function (el) { countObserver.observe(el); });
   }
 
-  // Прокрутка: индикатор прочитанного, «прилипшая» шапка и лёгкий параллакс.
-  // Всё считается в одном rAF-кадре, чтобы не дёргать layout на каждый скролл.
   function setupScrollFx() {
-    const bar = document.createElement('div');
+    var bar = document.createElement('div');
     bar.className = 'cs-progress';
     document.body.appendChild(bar);
-
-    let ticking = false;
-    const apply = function () {
+    var ticking = false;
+    var apply = function () {
       ticking = false;
-      const y = window.scrollY || document.documentElement.scrollTop;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
+      var y = window.scrollY || document.documentElement.scrollTop;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
       bar.style.setProperty('--cs-progress', max > 0 ? Math.min(1, y / max) : 0);
-
-      const header = document.querySelector('.cs-header');
+      var header = document.querySelector('.cs-header');
       if (header) header.classList.toggle('is-stuck', y > 12);
-
       if (!REDUCED) {
         document.querySelectorAll('.cs-parallax').forEach(function (el) {
-          const speed = parseFloat(el.getAttribute('data-cs-speed')) || 0.08;
+          var speed = parseFloat(el.getAttribute('data-cs-speed')) || 0.08;
           el.style.setProperty('--cs-py', (-y * speed).toFixed(1) + 'px');
         });
       }
     };
-    const onScroll = function () {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(apply);
-    };
+    var onScroll = function () { if (ticking) return; ticking = true; requestAnimationFrame(apply); };
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     apply();
   }
 
   function mount() {
-    const ns = window.DesignSystem_52b7c1;
+    var ns = window.DesignSystem_52b7c1;
     if (!ns || !window.App) { setTimeout(mount, 60); return; }
-    const App = window.App;
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-
-    // Keep Lucide icons rendered + inlined logo wired across React re-renders
-    const refresh = () => { window.lucide && window.lucide.createIcons(); fixImgs(); setupReveal(); setupCounters(); };
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(window.App));
+    var refresh = function () { window.lucide && window.lucide.createIcons(); setupReveal(); setupCounters(); };
     refresh();
     setupScrollFx();
     setTimeout(revealFallback, 2500);
     window.addEventListener('scroll', revealFallback, { passive: true, once: true });
-    let t;
-    const obs = new MutationObserver(() => { clearTimeout(t); t = setTimeout(refresh, 30); });
+    var t;
+    var obs = new MutationObserver(function () { clearTimeout(t); t = setTimeout(refresh, 30); });
     obs.observe(document.getElementById('root'), { childList: true, subtree: true });
   }
   mount();

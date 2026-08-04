@@ -1,6 +1,7 @@
 /* Чудо Садик — Website app shell */
 function App() {
-  const { Header, Hero, Programs, Banner, Care, DaySchedule, Summer, Pricing, Testimonials, Enroll, Contacts, Footer, QuickApply, Marquee } = window;
+  const { Header, Hero, Programs, Banner, Care, DaySchedule, Summer, Pricing, Testimonials,
+          Enroll, Contacts, Footer, QuickApply, Marquee, Gallery, Faq, ScrollTop, CookieBanner } = window;
 
   /* Живой фон всего сайта — садиковая сцена за контентом: солнце с лучами,
      плывущие облака, поднимающиеся шарики и мерцающие звёздочки.
@@ -72,15 +73,21 @@ function App() {
       <Marquee />
       <Care />
       <Programs />
+      <Gallery />
       <DaySchedule />
       <Pricing />
       <Enroll />
       <Testimonials />
+      <Faq />
       <Contacts />
       <Footer />
 
       {/* Плавающий виджет заявки (нижний правый угол) */}
       <QuickApply />
+      {/* Кнопка «наверх» — слева, чтобы не перекрывать виджет заявки */}
+      <ScrollTop />
+      {/* Уведомление о cookie: показывается до первого выбора посетителя */}
+      <CookieBanner />
     </div>
   );
 }

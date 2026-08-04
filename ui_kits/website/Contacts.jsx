@@ -1,7 +1,7 @@
 /* Чудо Садик — Контакты (contacts + map) */
 function Contacts() {
   const { SectionHeading, Button } = window.DesignSystem_52b7c1;
-  const { Ic, scrollToId } = window;
+  const { Ic, scrollToId, imgProps, goal } = window;
 
   // ← Редактируйте контактные данные здесь.
   //   href — куда ведёт ссылка (карта/звонок/Telegram); если нет — текст без ссылки.
@@ -79,7 +79,7 @@ function Contacts() {
             borderRadius: 'var(--radius-2xl)', overflow: 'hidden',
             border: '6px solid #fff', boxShadow: 'var(--shadow-lg)',
           }}>
-            <img src="../../assets/photos/map-route.jpg" alt="Схема проезда к садику Чудо — улица Ракатбоши, 42"
+            <img {...imgProps('assets/photos/map-route.jpg')} alt="Схема проезда к детскому саду Чудо Садик — Ташкент, улица Ракатбоши, 42"
               style={{ display: 'block', width: '100%', height: '100%', minHeight: '380px', objectFit: 'cover' }} />
             <span style={{
               position: 'absolute', left: '14px', bottom: '14px',

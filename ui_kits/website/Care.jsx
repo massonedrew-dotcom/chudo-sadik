@@ -66,7 +66,7 @@ function Care() {
         </div>
 
         {/* Фото «Почему выбирают именно нас» */}
-        <Photo src="../../assets/photos/kids-reading.jpg" alt="Дети в садике Чудо — почему выбирают именно нас"
+        <Photo src="assets/photos/kids-reading.jpg" alt="Дети в садике Чудо — почему выбирают именно нас"
           className="cs-reveal-right"
           style={{
             height: '560px', objectFit: 'contain',

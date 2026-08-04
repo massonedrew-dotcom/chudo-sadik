@@ -1,10 +1,38 @@
 /* Чудо Садик — Enrolment CTA with interactive form */
 function Enroll() {
   const { Button, Input, Badge } = window.DesignSystem_52b7c1;
-  const { Ic, Blob, formatPhone, sanitize } = window;
+  const { Ic, Blob, formatPhone, sanitize, sendLead, goal, ConsentCheck, CFG } = window;
   const [sent, setSent] = React.useState(false);
+  const [busy, setBusy] = React.useState(false);
   const [name, setName] = React.useState('');
   const [phone, setPhone] = React.useState('');
+  const [age, setAge] = React.useState('');
+  const [agree, setAgree] = React.useState(false);      // по умолчанию НЕ отмечено — требование закона
+  const [phoneErr, setPhoneErr] = React.useState('');
+  const [failed, setFailed] = React.useState('');
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    // Проверяем номер до отправки: пустая или битая заявка бесполезна обеим сторонам.
+    if (phone.replace(/\D/g, '').length < 9) {
+      setPhoneErr('Введите номер телефона полностью');
+      return;
+    }
+    setPhoneErr('');
+    setFailed('');
+    setBusy(true);
+    const res = await sendLead({ form: 'enroll', name, phone, age });
+    setBusy(false);
+    if (!res.ok && res.reason !== 'no-endpoint') {
+      setFailed('Не удалось отправить заявку. Позвоните нам — мы рядом.');
+      return;
+    }
+    goal('lead_enroll');
+    // Конфетти — до setSent: форма сейчас размонтируется, а размеры нужны сейчас.
+    if (window.CSMotion) window.CSMotion.confetti(form);
+    setSent(true);
+  };
 
   return (
     <section id="enroll" style={{ padding: 'var(--section-y) 0', scrollMarginTop: '92px' }}>
@@ -28,11 +56,11 @@ function Enroll() {
               Оставьте заявку — перезвоним, ответим на вопросы и пригласим познакомиться с садиком и педагогами.
             </p>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginTop: '4px', flexWrap: 'wrap' }}>
-              <a href="tel:+998946712626" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
+              <a href={'tel:' + CFG.PHONE_PRIMARY} onClick={() => goal('click_phone')} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
                 <Ic n="phone" size={18} color="var(--color-primary)" /> +998 94 671 26 26
               </a>
-              <a href="https://t.me/chudo_sadik" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
-                <Ic n="send" size={18} color="var(--sky-500)" /> @chudo_sadik
+              <a href={'https://t.me/' + CFG.TELEGRAM} target="_blank" rel="noopener noreferrer" onClick={() => goal('click_telegram')} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 700, color: 'var(--ink-700)', textDecoration: 'none' }}>
+                <Ic n="send" size={18} color="var(--sky-500)" /> @{CFG.TELEGRAM}
               </a>
             </div>
           </div>
@@ -48,24 +76,35 @@ function Enroll() {
                 </span>
                 <h3 style={{ font: 'var(--font-h3)', fontSize: '26px', margin: 0 }}>Спасибо{name ? `, ${name}` : ''}! 😊</h3>
                 <p style={{ color: 'var(--color-text-muted)', fontSize: '16px' }}>Мы получили вашу заявку и скоро перезвоним.</p>
-                <Button variant="soft" onClick={() => setSent(false)}>Отправить ещё одну</Button>
+                <Button variant="soft" onClick={() => { setSent(false); setAgree(false); }}>Отправить ещё одну</Button>
               </div>
             ) : (
-              <form onSubmit={(e) => {
-                e.preventDefault();
-                // Конфетти — до setSent: форма сейчас размонтируется, а размеры нужны сейчас.
-                if (window.CSMotion) window.CSMotion.confetti(e.currentTarget);
-                setSent(true);
-              }} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <form onSubmit={submit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 <h3 style={{ font: 'var(--font-h4)', fontSize: '22px', margin: '0 0 4px' }}>Записаться на экскурсию</h3>
-                <Input label="Ваше имя" placeholder="Как вас зовут?" required iconLeft={<Ic n="user" size={18} />} value={name} onChange={(e) => setName(sanitize(e.target.value, 60))} />
-                <Input label="Телефон" type="tel" placeholder="+998 90 123 45 67" required iconLeft={<Ic n="phone" size={18} />} value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} />
-                <Input label="Возраст ребёнка" placeholder="например, 3 года" iconLeft={<Ic n="cake" size={18} />} />
-                <Button type="submit" variant="primary" size="lg" block iconRight={<Ic n="arrow-right" size={20} />}>Отправить заявку</Button>
-                <span style={{ fontSize: '12px', color: 'var(--color-text-subtle)', textAlign: 'center' }}>
-                  Нажимая кнопку, вы соглашаетесь с{' '}
-                  <a href="privacy.html" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)' }}>политикой конфиденциальности</a>.
-                </span>
+                <Input label="Ваше имя" placeholder="Как вас зовут?" required
+                  autoComplete="name" name="name"
+                  iconLeft={<Ic n="user" size={18} />} value={name}
+                  onChange={(e) => setName(sanitize(e.target.value, 60))} />
+                <Input label="Телефон" type="tel" placeholder="+998 90 123 45 67" required
+                  inputMode="tel" autoComplete="tel" name="phone"
+                  iconLeft={<Ic n="phone" size={18} />} value={phone}
+                  error={phoneErr}
+                  onChange={(e) => { setPhone(formatPhone(e.target.value)); if (phoneErr) setPhoneErr(''); }} />
+                <Input label="Возраст ребёнка" placeholder="например, 3 года"
+                  iconLeft={<Ic n="cake" size={18} />} value={age}
+                  onChange={(e) => setAge(sanitize(e.target.value, 30))} />
+
+                <ConsentCheck id="enroll-consent" checked={agree} onChange={setAgree} />
+
+                {failed && (
+                  <span role="alert" style={{ fontSize: '13px', color: 'var(--color-danger)', textAlign: 'center' }}>{failed}</span>
+                )}
+
+                <Button type="submit" variant="primary" size="lg" block
+                  disabled={!agree || busy}
+                  iconRight={<Ic n="arrow-right" size={20} />}>
+                  {busy ? 'Отправляем…' : 'Отправить заявку'}
+                </Button>
               </form>
             )}
           </div>

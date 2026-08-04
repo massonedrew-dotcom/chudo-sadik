@@ -1,15 +1,18 @@
 /* Чудо Садик — Floating quick-apply widget (top-right corner) */
 function QuickApply() {
   const { Button, IconButton, Input, Badge } = window.DesignSystem_52b7c1;
-  const { Ic, formatPhone, sanitize } = window;
+  const { Ic, formatPhone, sanitize, sendLead, goal, ConsentCheck } = window;
 
   const [open, setOpen] = React.useState(false);
   const [sent, setSent] = React.useState(false);
+  const [busy, setBusy] = React.useState(false);
   const [name, setName] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [tg, setTg] = React.useState('');
+  const [agree, setAgree] = React.useState(false);   // по умолчанию НЕ отмечено — требование закона
   const [phoneErr, setPhoneErr] = React.useState('');
   const [tgErr, setTgErr] = React.useState('');
+  const [failed, setFailed] = React.useState('');
 
   React.useEffect(() => {
     if (!open) return;
@@ -27,15 +30,25 @@ function QuickApply() {
     return ok;
   };
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+    const form = e.currentTarget;
+    setFailed('');
+    setBusy(true);
+    const res = await sendLead({ form: 'quick-apply', name, phone, telegram: tg });
+    setBusy(false);
+    if (!res.ok && res.reason !== 'no-endpoint') {
+      setFailed('Не удалось отправить. Позвоните нам — мы рядом.');
+      return;
+    }
+    goal('lead_quick');
     // Конфетти — до setSent: форма сейчас размонтируется, а размеры нужны сейчас.
-    if (window.CSMotion) window.CSMotion.confetti(e.currentTarget);
+    if (window.CSMotion) window.CSMotion.confetti(form);
     setSent(true);
   };
 
-  const reset = () => { setSent(false); setName(''); setPhone(''); setTg(''); };
+  const reset = () => { setSent(false); setName(''); setPhone(''); setTg(''); setAgree(false); };
 
   return (
     <div style={{
@@ -46,7 +59,7 @@ function QuickApply() {
       {!open && (
         <button
           className="cs-qa-pill"
-          onClick={() => setOpen(true)}
+          onClick={() => { goal('open_quick_apply'); setOpen(true); }}
           style={{
             display: 'flex', alignItems: 'center', gap: '12px',
             background: 'var(--gradient-pink)', color: '#fff',
@@ -115,7 +128,7 @@ function QuickApply() {
               <Button variant="soft" size="sm" onClick={reset}>Отправить ещё одну</Button>
             </div>
           ) : (
-            <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <form onSubmit={submit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
                 <Badge color="primary" variant="solid" size="sm" iconLeft={<Ic n="sparkles" size={13} />}>
                   Идёт запись
@@ -132,6 +145,8 @@ function QuickApply() {
                 label="Имя"
                 placeholder="Как вас зовут?"
                 required
+                autoComplete="name"
+                name="name"
                 iconLeft={<Ic n="user" size={18} />}
                 value={name}
                 onChange={(e) => setName(sanitize(e.target.value, 60))}
@@ -141,6 +156,9 @@ function QuickApply() {
                 type="tel"
                 placeholder="+998 90 123 45 67"
                 required
+                inputMode="tel"
+                autoComplete="tel"
+                name="phone"
                 iconLeft={<Ic n="phone" size={18} />}
                 value={phone}
                 onChange={(e) => { setPhone(formatPhone(e.target.value)); if (phoneErr) setPhoneErr(''); }}
@@ -156,13 +174,17 @@ function QuickApply() {
                 helper={tgErr ? '' : 'Необязательно — напишем в Telegram, если удобнее'}
               />
 
-              <Button type="submit" variant="primary" size="md" block iconRight={<Ic n="arrow-right" size={18} />}>
-                Отправить заявку
+              <ConsentCheck id="quick-consent" checked={agree} onChange={setAgree} />
+
+              {failed && (
+                <span role="alert" style={{ fontSize: '12px', color: 'var(--color-danger)', textAlign: 'center' }}>{failed}</span>
+              )}
+
+              <Button type="submit" variant="primary" size="md" block
+                disabled={!agree || busy}
+                iconRight={<Ic n="arrow-right" size={18} />}>
+                {busy ? 'Отправляем…' : 'Отправить заявку'}
               </Button>
-              <span style={{ fontSize: '11px', color: 'var(--color-text-subtle)', textAlign: 'center', lineHeight: 1.4 }}>
-                Нажимая кнопку, вы соглашаетесь с{' '}
-                <a href="privacy.html" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary)' }}>политикой конфиденциальности</a>.
-              </span>
             </form>
           )}
         </div>

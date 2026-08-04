@@ -1,15 +1,16 @@
 /* Чудо Садик — Галерея занятий (реальные фото) */
 function Gallery() {
   const { SectionHeading } = window.DesignSystem_52b7c1;
+  const { imgProps } = window;
 
   // ← Фото лежат в assets/photos. alt — описание для доступности/SEO.
   const photos = [
-    { src: '../../assets/photos/dance.jpg',       alt: 'Танцы в садике Чудо' },
-    { src: '../../assets/photos/taekwondo.jpg',   alt: 'Тхэквондо для детей' },
-    { src: '../../assets/photos/robotics.jpg',    alt: 'Робототехника для детей' },
-    { src: '../../assets/photos/gymnastics.jpg',  alt: 'Гимнастика для малышей' },
-    { src: '../../assets/photos/massage.jpg',     alt: 'Детский массаж' },
-    { src: '../../assets/photos/summer-pool.jpg', alt: 'Летний отдых у бассейна' },
+    { src: 'assets/photos/dance.jpg',       alt: 'Танцы в детском саду Чудо Садик, Ташкент' },
+    { src: 'assets/photos/taekwondo.jpg',   alt: 'Тхэквондо для детей в садике, Ташкент' },
+    { src: 'assets/photos/robotics.jpg',    alt: 'Робототехника для дошкольников в Чудо Садике' },
+    { src: 'assets/photos/gymnastics.jpg',  alt: 'Гимнастика для малышей в детском саду' },
+    { src: 'assets/photos/massage.jpg',     alt: 'Оздоровительный детский массаж в садике' },
+    { src: 'assets/photos/summer-pool.jpg', alt: 'Летний сезон с бассейном в Чудо Садике' },
   ];
 
   const [lifted, setLifted] = React.useState(-1);
@@ -32,9 +33,8 @@ function Gallery() {
           {photos.map((p, i) => (
             <img
               key={p.src}
-              src={p.src}
+              {...imgProps(p.src)}
               alt={p.alt}
-              loading="lazy"
               onMouseEnter={() => setLifted(i)}
               onMouseLeave={() => setLifted(-1)}
               style={{

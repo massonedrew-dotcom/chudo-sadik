@@ -22,7 +22,7 @@ function Summer() {
       }}>
         {/* Фото бассейна */}
         <div className="cs-reveal-left" style={{ position: 'relative' }}>
-          <Photo src="../../assets/photos/summer-pool.jpg" alt="Летний сезон с бассейном в садике Чудо"
+          <Photo src="assets/photos/summer-pool.jpg" alt="Летний сезон с бассейном в садике Чудо"
             objectPosition="center 30%"
             style={{ height: '420px', borderRadius: 'var(--radius-2xl)', boxShadow: 'var(--shadow-lg)', border: '6px solid #fff' }} />
           <Badge color="sun" variant="solid" size="lg" iconLeft={<Ic n="sun" size={16} />}

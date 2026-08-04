@@ -1,17 +1,53 @@
-<!-- @dsCard group="Website" viewport="1280x860" name="Marketing homepage" subtitle="Full clickable site — 3 homepage directions, programmes, enrolment form" -->
+<!-- @dsCard group="Website" viewport="1280x860" name="Marketing homepage" subtitle="Full clickable site — hero, programmes, prices, FAQ, enrolment form" -->
 <!-- @startingPoint section="Website" subtitle="Чудо Садик marketing homepage — hero, programmes, enrolment" viewport="1280x860" -->
 <!DOCTYPE html>
-<html lang="ru">
+<!-- Служебная страница дизайн-системы: то же самое, что главная, но открывается
+     из каталога компонентов. Для поиска закрыта — иначе в индексе оказались бы
+     две одинаковых главных страницы с разными адресами. -->
+<html lang="ru" data-asset-base="../../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Чудо Садик — развивающий садик для малышей</title>
-<link rel="stylesheet" href="../../styles.css">
-<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script src="../../_ds_bundle.js"></script>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://chudo-sadik.uz/">
+<title>Чудо Садик — превью дизайн-системы</title>
+
+<link rel="stylesheet" href="../../tokens/fonts.css">
+<link rel="stylesheet" href="../../tokens/colors.css">
+<link rel="stylesheet" href="../../tokens/typography.css">
+<link rel="stylesheet" href="../../tokens/spacing.css">
+<link rel="stylesheet" href="../../tokens/base.css">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="motion.css">
+
+<script src="../../site.config.js"></script>
+<script src="faq.data.js"></script>
+
+<script defer src="../../vendor/react.production.min.js"></script>
+<script defer src="../../vendor/react-dom.production.min.js"></script>
+<script defer src="../../vendor/lucide.min.js"></script>
+<script defer src="../../_ds_bundle.js"></script>
+
+<script defer src="dist/Common.js"></script>
+<script defer src="dist/Header.js"></script>
+<script defer src="dist/Hero.js"></script>
+<script defer src="dist/Marquee.js"></script>
+<script defer src="dist/Programs.js"></script>
+<script defer src="dist/Banner.js"></script>
+<script defer src="dist/Care.js"></script>
+<script defer src="dist/Gallery.js"></script>
+<script defer src="dist/DaySchedule.js"></script>
+<script defer src="dist/Pricing.js"></script>
+<script defer src="dist/Summer.js"></script>
+<script defer src="dist/Testimonials.js"></script>
+<script defer src="dist/Enroll.js"></script>
+<script defer src="dist/Faq.js"></script>
+<script defer src="dist/Contacts.js"></script>
+<script defer src="dist/Footer.js"></script>
+<script defer src="dist/QuickApply.js"></script>
+<script defer src="dist/Widgets.js"></script>
+<script defer src="dist/App.js"></script>
+
 <style>
   html, body { margin: 0; background: var(--cream); }
   body { font-family: var(--font-body); color: var(--color-text); }
@@ -20,27 +56,17 @@
 <body>
 <div id="root"></div>
 
-<script type="text/babel" src="Common.jsx" data-presets="react"></script>
-<script type="text/babel" src="Header.jsx" data-presets="react"></script>
-<script type="text/babel" src="Hero.jsx" data-presets="react"></script>
-<script type="text/babel" src="Programs.jsx" data-presets="react"></script>
-<script type="text/babel" src="Care.jsx" data-presets="react"></script>
-<script type="text/babel" src="Enroll.jsx" data-presets="react"></script>
-<script type="text/babel" src="Footer.jsx" data-presets="react"></script>
-<script type="text/babel" src="App.jsx" data-presets="react"></script>
-
-<script type="text/babel" data-presets="react">
+<script>
   function mount() {
-    const ns = window.DesignSystem_52b7c1;
+    var ns = window.DesignSystem_52b7c1;
     if (!ns || !window.App) { setTimeout(mount, 60); return; }
-    const App = window.App;
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(window.App));
 
-    // Keep Lucide icons rendered across React re-renders
-    const refresh = () => window.lucide && window.lucide.createIcons();
+    // Иконки Lucide перерисовываются при каждом ре-рендере React
+    var refresh = function () { window.lucide && window.lucide.createIcons(); };
     refresh();
-    let t;
-    const obs = new MutationObserver(() => { clearTimeout(t); t = setTimeout(refresh, 30); });
+    var t;
+    var obs = new MutationObserver(function () { clearTimeout(t); t = setTimeout(refresh, 30); });
     obs.observe(document.getElementById('root'), { childList: true, subtree: true });
   }
   mount();

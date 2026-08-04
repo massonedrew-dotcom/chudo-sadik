@@ -1,7 +1,7 @@
 /* Чудо Садик — Programmes grid with category filter and photos */
 function Programs() {
   const { SectionHeading, Tag, Badge } = window.DesignSystem_52b7c1;
-  const { Ic } = window;
+  const { Ic, imgProps } = window;
   const [filter, setFilter] = React.useState('Все');
 
   const cats = [
@@ -16,19 +16,19 @@ function Programs() {
   // Где фото нет — рисуется красивая плитка с иконкой.
   // age — возраст, freq — периодичность, cost — оплата (included / extra / clarify).
   const programs = [
-    { t: 'Английский язык', d: 'Разговорные навыки и знакомство с языком через игры и общение.', i: 'languages', c: 'sky', g: 'Речь и язык', img: '../../assets/photos/english.jpg', pos: 'center 35%', age: 'от 3 лет', freq: '2–3 раза в неделю', cost: 'included' },
-    { t: 'Подготовка к школе', d: 'Чтение, письмо, логика и математические навыки.', i: 'graduation-cap', c: 'sun', g: 'Речь и язык', img: '../../assets/photos/kids-reading.jpg', pos: 'center 40%', age: '5–7 лет', freq: 'ежедневно', cost: 'included' },
-    { t: 'Логопед-дефектолог', d: 'Коррекция речи и развитие речевых навыков.', i: 'mic', c: 'purple', g: 'Речь и язык', img: '../../assets/photos/speech.jpg', pos: 'center 50%', age: 'по рекомендации', freq: 'индивидуально', cost: 'extra' },
-    { t: 'Танцы', d: 'Координация, чувство ритма и пластика.', i: 'music', c: 'pink', g: 'Движение', img: '../../assets/photos/dance.jpg', pos: 'center 55%', age: 'от 3 лет', freq: '2 раза в неделю', cost: 'included' },
-    { t: 'Тхэквондо', d: 'Дисциплина, сила и уверенность в себе.', i: 'swords', c: 'sky', g: 'Движение', img: '../../assets/photos/taekwondo.jpg', pos: 'center 38%' },
-    { t: 'Гимнастика', d: 'Здоровье, гибкость и координация.', i: 'activity', c: 'mint', g: 'Движение', img: '../../assets/photos/gymnastics.jpg', pos: 'center 52%', age: 'от 2 лет', cost: 'included' },
-    { t: 'Массаж', d: 'Оздоровительный курс для укрепления здоровья.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: '../../assets/photos/massage.jpg', pos: 'center 50%', age: 'от 1 года', cost: 'included' },
-    { t: 'Актёрское мастерство', d: 'Сцена, эмоции и уверенность в себе.', i: 'drama', c: 'orange', g: 'Творчество', img: '../../assets/photos/acting.jpg', pos: 'center 40%' },
-    { t: 'Рисование', d: 'Краски, фантазия и мелкая моторика.', i: 'palette', c: 'sun', g: 'Творчество', img: '../../assets/photos/drawing.jpg', pos: 'center 35%' },
-    { t: 'Развивающие игры', d: 'Каждый день — новое маленькое открытие.', i: 'puzzle', c: 'pink', g: 'Творчество', img: '../../assets/photos/games.jpg', pos: 'center 35%' },
-    { t: 'Мастер-классы', d: 'Творческие занятия и новые умения.', i: 'sparkles', c: 'mint', g: 'Творчество', img: '../../assets/photos/crafts.jpg', pos: 'center 50%' },
-    { t: 'Шахматы', d: 'Логическое мышление и концентрация.', i: 'crown', c: 'purple', g: 'Логика', img: '../../assets/photos/chess.jpg', pos: 'center 30%', age: 'от 5 лет', freq: '1–2 раза в неделю', cost: 'clarify' },
-    { t: 'Робототехника', d: 'Конструирование и основы технического мышления.', i: 'bot', c: 'sky', g: 'Логика', img: '../../assets/photos/robotics.jpg', pos: 'center 40%', age: 'от 5 лет', freq: '1–2 раза в неделю', cost: 'clarify' },
+    { t: 'Английский язык', d: 'Разговорные навыки и знакомство с языком через игры и общение.', i: 'languages', c: 'sky', g: 'Речь и язык', img: 'assets/photos/english.jpg', pos: 'center 35%', age: 'от 3 лет', freq: '2–3 раза в неделю', cost: 'included' },
+    { t: 'Подготовка к школе', d: 'Чтение, письмо, логика и математические навыки.', i: 'graduation-cap', c: 'sun', g: 'Речь и язык', img: 'assets/photos/kids-reading.jpg', pos: 'center 40%', age: '5–7 лет', freq: 'ежедневно', cost: 'included' },
+    { t: 'Логопед-дефектолог', d: 'Коррекция речи и развитие речевых навыков.', i: 'mic', c: 'purple', g: 'Речь и язык', img: 'assets/photos/speech.jpg', pos: 'center 50%', age: 'по рекомендации', freq: 'индивидуально', cost: 'extra' },
+    { t: 'Танцы', d: 'Координация, чувство ритма и пластика.', i: 'music', c: 'pink', g: 'Движение', img: 'assets/photos/dance.jpg', pos: 'center 55%', age: 'от 3 лет', freq: '2 раза в неделю', cost: 'included' },
+    { t: 'Тхэквондо', d: 'Дисциплина, сила и уверенность в себе.', i: 'swords', c: 'sky', g: 'Движение', img: 'assets/photos/taekwondo.jpg', pos: 'center 38%' },
+    { t: 'Гимнастика', d: 'Здоровье, гибкость и координация.', i: 'activity', c: 'mint', g: 'Движение', img: 'assets/photos/gymnastics.jpg', pos: 'center 52%', age: 'от 2 лет', cost: 'included' },
+    { t: 'Массаж', d: 'Оздоровительный курс для укрепления здоровья.', i: 'heart-handshake', c: 'purple', g: 'Движение', img: 'assets/photos/massage.jpg', pos: 'center 50%', age: 'от 1 года', cost: 'included' },
+    { t: 'Актёрское мастерство', d: 'Сцена, эмоции и уверенность в себе.', i: 'drama', c: 'orange', g: 'Творчество', img: 'assets/photos/acting.jpg', pos: 'center 40%' },
+    { t: 'Рисование', d: 'Краски, фантазия и мелкая моторика.', i: 'palette', c: 'sun', g: 'Творчество', img: 'assets/photos/drawing.jpg', pos: 'center 35%' },
+    { t: 'Развивающие игры', d: 'Каждый день — новое маленькое открытие.', i: 'puzzle', c: 'pink', g: 'Творчество', img: 'assets/photos/games.jpg', pos: 'center 35%' },
+    { t: 'Мастер-классы', d: 'Творческие занятия и новые умения.', i: 'sparkles', c: 'mint', g: 'Творчество', img: 'assets/photos/crafts.jpg', pos: 'center 50%' },
+    { t: 'Шахматы', d: 'Логическое мышление и концентрация.', i: 'crown', c: 'purple', g: 'Логика', img: 'assets/photos/chess.jpg', pos: 'center 30%', age: 'от 5 лет', freq: '1–2 раза в неделю', cost: 'clarify' },
+    { t: 'Робототехника', d: 'Конструирование и основы технического мышления.', i: 'bot', c: 'sky', g: 'Логика', img: 'assets/photos/robotics.jpg', pos: 'center 40%', age: 'от 5 лет', freq: '1–2 раза в неделю', cost: 'clarify' },
   ];
 
   // Метки стоимости занятия.
@@ -81,7 +81,7 @@ function Programs() {
                 <span className="cs-glare" />
                 {/* Шапка карточки: фото или красивая плитка с иконкой-стикером */}
                 {p.img ? (
-                  <img src={p.img} alt={p.t} loading="lazy"
+                  <img {...imgProps(p.img)} alt={'Занятие «' + p.t + '» в садике Чудо — Ташкент'}
                     style={{ display: 'block', width: '100%', height: HEADER_H + 'px', objectFit: 'cover', objectPosition: p.pos || 'center' }} />
                 ) : (
                   <div style={{

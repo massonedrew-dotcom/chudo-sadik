@@ -1,37 +1,75 @@
-# Чудо Садик — Website UI kit
+# Чудо Садик — сайт
 
-A high-fidelity, clickable recreation of the **Чудо Садик** marketing website, built entirely from the design-system foundations and components.
+Маркетинговый сайт садика, собранный на компонентах дизайн-системы.
+Одна страница с якорными разделами плюс две правовые страницы.
 
-> No existing product/site was supplied — this is an original on-brand build that demonstrates the system in a realistic marketing context (not a recreation of a live site).
+## Как запустить локально
 
-## Run it
-Open `index.html`. It loads the design-system bundle (`../../_ds_bundle.js`) + tokens (`../../styles.css`), Lucide icons (CDN) and the kit's section files.
+```bash
+node tools/serve.js
+```
 
-## Homepage directions
-A floating switcher (bottom centre) toggles **three hero/homepage directions** for comparison:
-- **☀️ Солнечный (sunshine)** — gradient headline, radial-sun background, hero photo + stat badge. The flagship.
-- **🎨 Яркие плитки (tiles)** — headline beside a colourful cluster of programme tiles + photo.
-- **🤍 Спокойный (calm)** — full-bleed photo hero with a dark protection gradient; parent-reassurance led.
+Откроется на http://localhost:4173. Обычный `file://` не подойдёт: не заработают
+абсолютные пути, отправка форм и страница 404.
 
-## Interactions
-- **Programmes** — category filter chips (`Tag`) filter the `FeatureCard` grid live.
-- **Enrolment** — the form (`Input` + `Button`) validates required fields and shows a success state on submit.
-- Header nav, buttons and cards have full hover/press states.
+## Как собрать после правок
 
-## Files
-| File | Role |
+```bash
+node tools/build.js
+```
+
+Делает две вещи:
+
+1. **Компилирует JSX в JS** — `*.jsx` → `dist/*.js`. Браузер получает готовый код;
+   раньше он тянул `@babel/standalone` (3 МБ) и компилировал JSX у посетителя.
+2. **Пишет пререндер** — отрисовывает страницу в HTML и подставляет её в
+   `index.html` между метками `<!--prerender-->…<!--/prerender-->`. Без этого
+   поисковый робот (особенно Яндекс) видит пустую страницу.
+
+**Правку `*.jsx` без пересборки сайт не увидит.** Страница грузит `dist/`, а не исходники.
+
+Зависимостей нет, `npm install` не нужен: Babel и React лежат в `vendor/`.
+
+## Что где лежит
+
+| Файл | Роль |
 |------|------|
-| `index.html` | Entry — loads bundle + sections, mounts `App`, keeps Lucide icons fresh |
-| `Common.jsx` | Shared helpers: `Ic` (Lucide), `Photo` placeholder, `Blob`, `SunMark` |
-| `Header.jsx` | Sticky translucent header — brand, nav, Telegram + CTA |
-| `Hero.jsx` | The three homepage directions (`direction` prop) |
-| `Programs.jsx` | Nine programmes with live category filter |
-| `Care.jsx` | "Why parents choose us" + a Telegram daily-report card |
-| `Enroll.jsx` | Enrolment CTA band with interactive form |
-| `Footer.jsx` | Dark footer with link columns + socials |
-| `App.jsx` | Composes all sections + direction switcher |
+| `../../index.html` | **Главная страница сайта** (в корне). Мета-теги, микроразметка, подключение скриптов, пререндер |
+| `../../site.config.js` | Единственное место для настроек: домен, счётчики, приёмник заявок, контакты |
+| `Common.jsx` | Общее: пути к статике (`asset`), атрибуты картинок (`imgProps` — WebP + размеры), отправка заявок (`sendLead`), цели аналитики (`goal`), чекбокс согласия |
+| `Header.jsx` | Липкая шапка: логотип-ссылка, меню, телефон, Telegram, «Записаться» |
+| `Hero.jsx` | Первый экран (три варианта, включён `sunshine`) |
+| `Banner.jsx` · `Marquee.jsx` | Приветственный баннер и бегущая строка |
+| `Care.jsx` · `Programs.jsx` · `Gallery.jsx` | О садике, занятия с фильтром, галерея |
+| `DaySchedule.jsx` · `Pricing.jsx` · `Summer.jsx` | Распорядок дня, тарифы, летний сезон |
+| `Testimonials.jsx` · `Faq.jsx` | Отзывы и частые вопросы |
+| `Enroll.jsx` · `QuickApply.jsx` | Две формы заявки |
+| `Widgets.jsx` | Кнопка «наверх» и cookie-баннер |
+| `Footer.jsx` | Подвал: разделы, адрес, телефоны, правовые ссылки |
+| `App.jsx` | Собирает всё вместе + живой фон |
+| `faq.data.js` | Вопросы и ответы. Отсюда же строится микроразметка `FAQPage` |
+| `analytics.js` | Метрика и GA4 — грузятся только после согласия в баннере |
+| `dist/` | Результат сборки. Выкладывать вместе с сайтом |
 
-## Composition notes
-- Section files use the **window-global** pattern (defined as `window.X`) so multiple Babel files share scope. They are app code, not design-system components.
-- Reusable primitives (`Button`, `Badge`, `Card`, `FeatureCard`, `Input`, `Avatar`, `SectionHeading`, `Tag`) come from `window.DesignSystem_52b7c1` — composed, never re-implemented.
-- **Photos** are placeholder blocks (`Photo`) marking where real imagery goes. Replace with bright, warm, naturally-lit photos of children at the садик. *(Flagged: no brand photography was supplied.)*
+## Как устроены пути к картинкам
+
+Страницы лежат на разной глубине (главная в корне, превью дизайн-системы — в
+`ui_kits/website/`), а относительные пути в JSX считаются от адреса **страницы**.
+Поэтому база задаётся самой страницей — `<html data-asset-base="…">`, а компоненты
+зовут `asset('assets/photos/x.jpg')`.
+
+## Правила, которые легко нарушить
+
+- **Не редактируйте `dist/` и блок пререндера руками** — перезапишутся при сборке.
+- **Не закрывайте в `robots.txt` файлы `.js`, `.css` и `dist/`** — робот рендерит
+  страницу перед индексацией и увидит сломанную вёрстку.
+- **Чекбокс согласия не должен быть отмечен по умолчанию** — предустановленная
+  галочка согласием не считается (Закон РУз «О персональных данных», ЗРУ-547).
+- Меняете цены или режим работы — поправьте их **в трёх местах**: `Pricing.jsx`,
+  `faq.data.js` и микроразметку в `index.html`.
+
+## Что нужно заполнить перед запуском
+
+Всё в `../../site.config.js`: `METRIKA_ID`, `GA4_ID`, `FORM_ENDPOINT`, `EMAIL`,
+`FOUNDED`. Пустое значение просто выключает соответствующую возможность.
+Подробности и остаток задач — в `../../SEO-checklist.md`.
